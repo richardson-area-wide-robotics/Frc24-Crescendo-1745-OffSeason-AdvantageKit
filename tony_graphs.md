@@ -1,7 +1,8 @@
 ```mermaid
-
 graph TD;
-    subgraph invisibleShooterGroup
+    PDH{{Power Distribution Hub}};
+    
+    subgraph ShooterGroup
         direction LR
         ShooterSystem{Shooter};
         ShooterSystem==>FUNCSHOOTER;
@@ -13,10 +14,10 @@ motor ID = *14*);
         ShooterSystem==>ShooterRight(Shooter Right
 1 motor
 motor ID = *13*);
-    PDH==>|Slot 10|ShooterRight
+        PDH==>|Slot 10|ShooterRight
     end
 
-subgraph invisibleFeederGroup
+    subgraph FeederGroup
         direction LR
         FeederSystem  ==>FUNCFEEDER;
         FUNCFEEDER[/Hold Note/] ==>FUNCFEEDER2;
@@ -24,52 +25,73 @@ subgraph invisibleFeederGroup
         FUNCFEEDER3[/Feed into intake Note/];
     end
 
-    RoboRIO{{RoboRIO
-FUNCTION : Brain of the robot, controls all subsystems}}==>DriveTrain;
-    DriveTrain(Drive Train);
-    DriveTrain==>FUNCDRIVE[/Drive Robot/];
-    RoboRIO==>NoteSubsystem((Note Subsystem));
-    NoteSubsystem==>IntakeSystem((Intake));
-    IntakeSystem==>IntakeMotor(Motor ID = *15*)
-    NoteSubsystem==>ShooterSystem;
-    RoboRIO==>ClimberSystem(Climber);
-    ClimberSystem==>ClimberMotor(Moter ID = *17*)
-    ClimberSystem==>FUNCCLIMBER1
-    IntakeSystem==>FeederSystem((Feeder))==>ShooterSystem;
-    FeederSystem==>FeederMoter(Motor ID = *11*)
-    IntakeSystem==>FUNCINTAKE1;
-    NoteSubsystem==>PivotSystem(Pivot);
-    PivotSystem==>PivotLeft(Pivot Left
+    subgraph IntakeGroup
+        direction LR
+        NoteSubsystem((Note Subsystem))==>IntakeSystem((Intake));
+        IntakeSystem==>IntakeMotor(Motor ID = *15*)
+        IntakeSystem==>FeederSystem((Feeder))==>ShooterSystem;
+        IntakeSystem==>FUNCINTAKE1;
+        IntakeSystem===>BrakeBeamNote([Brake Beam *2*])==>FeederSystem;
+    end
+
+    subgraph ClimberGroup
+        direction LR
+        ClimberSystem(Climber);
+        ClimberSystem==>ClimberMotor(Motor ID = *17*);
+        ClimberSystem==>FUNCCLIMBER1;
+    end
+
+    subgraph PivotGroup
+        direction LR
+        NoteSubsystem==>PivotSystem(Pivot);
+        PivotSystem==>PivotLeft(Pivot Left
 1 motor
 motor ID = *9*);
-    PDH==>|Slot 15|PivotLeft
-    PivotSystem==>PivotRight(Pivot Right
+        PDH==>|Slot 15|PivotLeft
+        PivotSystem==>PivotRight(Pivot Right
 1 motor
 motor ID = *10*);
-    PDH==>|Slot 11|PivotRight
-    DriveTrain==>FrontRightSwerve(Front Right Swerve);
-    DriveTrain==>FrontLeftSwerve(Front Left Swerve);
-    DriveTrain==>BackRightSwerve(Back Right Swerve);
-    DriveTrain==>BackLeftSwerve(Back Left Swerve);
-    FrontRightSwerve==>MaxFR(Max *6*);
-    FrontLeftSwerve==>MaxFL(Max *8*);
-    BackRightSwerve==>MaxBR(Max *4*);
-    BackLeftSwerve==>MaxBL(Max *2*);
-    FrontRightSwerve==>VortexFR(Vortex *5*);
-    FrontLeftSwerve==>VortexFL(Vortex *7*);
-    BackRightSwerve==>VortexBR(Vortex *3*);
-    BackLeftSwerve==>VortexBL(Vortex *1*);
-    MaxFR==>EncoderFR[[Absolute Encoder]];
-    MaxFL==>EncoderFL[[Absolute Encoder]];
-    MaxBR==>EncoderBR[[Absolute Encoder]];
-    MaxBL==>EncoderBL[[Absolute Encoder]];
-    PivotLeft==>PivotEncoder[[Absolute Encoder]];
-    IntakeSystem===>BrakeBeamNote([Brake Beam *2*])==>FeederSystem;
-    ShooterSystem==>ShooterBrakeBeam([Brake Beam *1*]);
-    RoboRIO==>MiniPowerModule[\Mini Power Module *3*/]==>ShooterBrakeBeam;
-    MiniPowerModule==>BrakeBeamNote;
+        PDH==>|Slot 11|PivotRight
+    end
+
+    subgraph DriveTrainGroup
+        direction LR
+        DriveTrain(Drive Train);
+        DriveTrain==>FUNCDRIVE[/Drive Robot/];
+        DriveTrain==>FrontRightSwerve(Front Right Swerve);
+        DriveTrain==>FrontLeftSwerve(Front Left Swerve);
+        DriveTrain==>BackRightSwerve(Back Right Swerve);
+        DriveTrain==>BackLeftSwerve(Back Left Swerve);
+    end
+
+    subgraph SwerveGroup
+        direction LR
+        FrontRightSwerve==>MaxFR(Max *6*);
+        FrontLeftSwerve==>MaxFL(Max *8*);
+        BackRightSwerve==>MaxBR(Max *4*);
+        BackLeftSwerve==>MaxBL(Max *2*);
+        FrontRightSwerve==>VortexFR(Vortex *5*);
+        FrontLeftSwerve==>VortexFL(Vortex *7*);
+        BackRightSwerve==>VortexBR(Vortex *3*);
+        BackLeftSwerve==>VortexBL(Vortex *1*);
+    end
+
+    subgraph EncoderGroup
+        direction LR
+        MaxFR==>EncoderFR[[Absolute Encoder]];
+        MaxFL==>EncoderFL[[Absolute Encoder]];
+        MaxBR==>EncoderBR[[Absolute Encoder]];
+        MaxBL==>EncoderBL[[Absolute Encoder]];
+        PivotLeft==>PivotEncoder[[Absolute Encoder]];
+    end
+
     RADIO[(RADIO
 FUNCTION : communicate between robot and drive station)]==>RoboRIO;
+    RoboRIO{{RoboRIO
+FUNCTION : Brain of the robot, controls all subsystems}}==>DriveTrain;
+    RoboRIO==>MiniPowerModule[\Mini Power Module *3*/]==>ShooterBrakeBeam;
+    ShooterSystem==>ShooterBrakeBeam([Brake Beam *1*]);
+    
     FUNCINTAKE1[/Intake/Outtake/]==>FUNCINTAKE2;
     FUNCINTAKE2[/Feed note into shooter/];
     FUNCSHOOTER[/Hold Note/] ==>FUNCSHOOTER2;
@@ -82,19 +104,17 @@ FUNCTION : communicate between robot and drive station)]==>RoboRIO;
     FUNCPIVOT2[/Move down/]==>FUNCPIVOT3;
     FUNCPIVOT3[/Go to position/];
 
-    PDH{{Power Distribution Hub}};
-
-
     classDef fuctionStyle fill:#ce3131,stroke-width:2px,color:#000;
     class FUNCINTAKE1,FUNCINTAKE2,FUNCINTAKE3,FUNCBREAKBEAM,FUNCFEEDER,FUNCFEEDER2,FUNCFEEDER3,FUNCSHOOTER,FUNCSHOOTER2,FUNCSHOOTER3,FUNCDRIVE,FUNCPIVOT1,FUNCPIVOT2,FUNCPIVOT3,FUNCCLIMBER1,FUNCCLIMBER2 fuctionStyle;
 
     classDef invisible fill:none,stroke:none,color:transparent;
-    class invisibleShooterGroup,invisibleFeederGroup invisible;
+    class invisibleShooterGroup,invisibleFeederGroup,IntakeGroup,FeederGroup,ShooterGroup,PivotGroup,DriveTrainGroup,EncoderGroup,SwerveGroup,ClimberGroup invisible;
 
     classDef powerStyle fill:#ff7f50,stroke-width:2px,color:#000;
     class PDH,MiniPowerModule powerStyle;
 
     linkStyle default interpolate basis;
+
 
 
 ```
