@@ -48,17 +48,14 @@ FUNCTION : get the robot on chain, unroll and reroll string);
     MaxBR==>EncoderBR[[Absolute Encoder]];
     MaxBL==>EncoderBL[[Absolute Encoder]];
     PivotSystem==>PivotEncoder[[Absolute Encoder]];
-    IntakeSystem===>BrakeBeamNote((Brake Beam *2*))==>FeederSystem;
-    BrakeBeamNote==>FUNCBREAKBEAM;
-    RoboRIO==>ShooterBrakeBeam([Brake Beam *1*
-FUNCTION : check if note has been moved]);
+    IntakeSystem===>BrakeBeamNote([Brake Beam *2*])==>FeederSystem;
+    RoboRIO==>ShooterBrakeBeam([Brake Beam *1*]);
     RoboRIO==>MiniPowerModule[(Mini Power Module *3*)]==>ShooterBrakeBeam;
     MiniPowerModule[(Mini Power Module *3*)]==>BrakeBeamNote;
     RADIO[(RADIO
 FUNCTION : communicate between robot and drive station)]==>RoboRIO;
     FUNCINTAKE1[/Intake/Outtake/]==>FUNCINTAKE2;
     FUNCINTAKE2[/Feed note into shooter/];
-    FUNCBREAKBEAM[/Detect Note/];
     FUNCSHOOTER[/Hold Note/] ==>FUNCSHOOTER2;
     FUNCSHOOTER2[/Feed into intake/];
 
