@@ -1,5 +1,5 @@
 ```mermaid
-graph TD;
+graph LR;
     PDH{{Power Distribution Hub}};
     
     subgraph ShooterGroup
@@ -19,7 +19,10 @@ motor ID = *13*);
 
     subgraph FeederGroup
         direction LR
-        FeederSystem  ==>FUNCFEEDER;
+        FeederSystem==>Feeder(Kicker
+1 motor
+Motor ID = *11*)
+        FeederSystem ==>FUNCFEEDER;
         FUNCFEEDER[/Hold Note/] ==>FUNCFEEDER2;
         FUNCFEEDER2[/Feed into shooter/] ==> FUNCFEEDER3;
         FUNCFEEDER3[/Feed into intake Note/];
@@ -27,10 +30,11 @@ motor ID = *13*);
 
     subgraph IntakeGroup
         direction LR
-        NoteSubsystem((Note Subsystem))==>IntakeSystem((Intake));
+        RoboRIO==>NoteSubsystem((Note Subsystem))==>IntakeSystem((Intake));
         IntakeSystem==>IntakeMotor(Motor ID = *15*)
         IntakeSystem==>FeederSystem((Feeder))==>ShooterSystem;
         IntakeSystem==>FUNCINTAKE1;
+        MiniPowerModule==>BrakeBeamNote
         IntakeSystem===>BrakeBeamNote([Brake Beam *2*])==>FeederSystem;
     end
 
@@ -108,12 +112,24 @@ FUNCTION : Brain of the robot, controls all subsystems}}==>DriveTrain;
     class FUNCINTAKE1,FUNCINTAKE2,FUNCINTAKE3,FUNCBREAKBEAM,FUNCFEEDER,FUNCFEEDER2,FUNCFEEDER3,FUNCSHOOTER,FUNCSHOOTER2,FUNCSHOOTER3,FUNCDRIVE,FUNCPIVOT1,FUNCPIVOT2,FUNCPIVOT3,FUNCCLIMBER1,FUNCCLIMBER2 fuctionStyle;
 
     classDef invisible fill:none,stroke:none,color:transparent;
-    class invisibleShooterGroup,invisibleFeederGroup,IntakeGroup,FeederGroup,ShooterGroup,PivotGroup,DriveTrainGroup,EncoderGroup,SwerveGroup,ClimberGroup invisible;
+    class invisibleShooterGroup,IntakeGroup,FeederGroup,ShooterGroup,PivotGroup,DriveTrainGroup,EncoderGroup,SwerveGroup,ClimberGroup invisible;
 
     classDef powerStyle fill:#ff7f50,stroke-width:2px,color:#000;
     class PDH,MiniPowerModule powerStyle;
 
     linkStyle default interpolate basis;
+
+    PDH==>|Slot 13|Feeder
+    PDH==>|Slot 15|IntakeMotor
+    PDH==>|Slot 1|VortexFL
+    PDH==>|Slot 2|MaxFL
+    PDH==>|Slot 9|VortexFR
+    PDH==>|Slot 8|MaxFR
+    PDH==>|Slot 19|MaxBL
+    PDH==>|Slot 3|ClimberMotor
+    PDH==>|Slot 16|MaxBR
+    PDH==>|Slot 17|VortexBR
+    PDH==>|Slot 4|VortexBL
 
 
 
