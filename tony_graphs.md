@@ -2,20 +2,20 @@
 graph TD;
     RoboRIO{{RoboRIO
 FUNCTION : Brain of the robot, controls all subsystems}}-->DriveTrain;
-    DriveTrain((Drive Train
-FUNCTION : drive the robot ));
+    DriveTrain(Drive Train
+FUNCTION : drive the robot );
     RoboRIO-->NoteSubsystem((Note Subsystem
 FUNCTION : Intake, outake, transport, and shoot a note));
-    NoteSubsystem-->IntakeSystem(Intake *15*
-FUNCTION : intake, idle, pass to feeder, and outake);
-    NoteSubsystem-->ShooterSystem(Shooter
-FUNCTION : Ramp up, Ramp down, and Idle spin);
-    ShooterSystem-->ShooterLeft(Shooter Left *14*);
-    ShooterSystem-->ShooterRight(Shooter Right *13*);
+    NoteSubsystem-->IntakeSystem((Intake *15*
+FUNCTION : intake, idle, pass to feeder, and outtake));
+    NoteSubsystem-->ShooterSystem{Shooter
+FUNCTION : Ramp up, Ramp down, and Idle spin};
+    ShooterSystem-->ShooterLeft{Shooter Left *14*};
+    ShooterSystem-->ShooterRight{Shooter Right *13*};
     RoboRIO-->ClimberSystem(Climber *17*
 FUNCTION : get the robot on chain, unroll and reroll string);
-    IntakeSystem-->FeederSystem(Feeder *11*
-FUNCTION : hold note, feed into shooter, and feed back into intake to outake)-->ShooterSystem;
+    IntakeSystem-->FeederSystem((Feeder *11*
+FUNCTION : hold note, feed into shooter, and feed back into intake to outake))-->ShooterSystem;
     NoteSubsystem-->PivotSystem(Pivot
 FUNCTION : move up, move down, go to positions);
     PivotSystem-->PivotLeft(Pivot Left *9*);
@@ -37,8 +37,8 @@ FUNCTION : move up, move down, go to positions);
     MaxBR-->EncoderBR[[Absolute Encoder]];
     MaxBL-->EncoderBL[[Absolute Encoder]];
     PivotSystem-->PivotEncoder[[Absolute Encoder]];
-    IntakeSystem--->BrakeBeamNote([Brake Beam *2*
-FUNCTION : check if note has been moved])-->FeederSystem;
+    IntakeSystem--->BrakeBeamNote((Brake Beam *2*
+FUNCTION : check if note has been moved))-->FeederSystem;
     RoboRIO-->ShooterBrakeBeam([Brake Beam *1*
 FUNCTION : check if note has been moved]);
     RoboRIO-->MiniPowerModule[(Mini Power Module *3*)]-->ShooterBrakeBeam;
