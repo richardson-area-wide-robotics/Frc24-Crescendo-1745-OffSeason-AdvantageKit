@@ -28,8 +28,7 @@ FUNCTION : Brain of the robot, controls all subsystems}}==>DriveTrain;
 FUNCTION : get the robot on chain, unroll and reroll string);
     IntakeSystem==>FeederSystem((Feeder *11*))==>ShooterSystem;
     IntakeSystem==>FUNCINTAKE1;
-    NoteSubsystem==>PivotSystem(Pivot
-FUNCTION : move up, move down, go to positions);
+    NoteSubsystem==>PivotSystem(Pivot);
     PivotSystem==>PivotLeft(Pivot Left *9*);
     PivotSystem==>PivotRight(Pivot Right *10*);
     DriveTrain==>FrontRightSwerve(Front Right Swerve);
@@ -62,10 +61,16 @@ FUNCTION : communicate between robot and drive station)]==>RoboRIO;
     FUNCBREAKBEAM[/Detect Note/];
     FUNCSHOOTER[/Hold Note/] ==>FUNCSHOOTER2;
     FUNCSHOOTER2[/Feed into intake/];
+
+    PivotSystem==>FUNCPIVOT1[/Move up/]==>FUNCPIVOT2;
+    FUNCPIVOT2[/Move down/]==>FUNCPIVOT3;
+    FUNCPIVOT3[/Go to position/];
+
     PDH(Power Distribution Hub);
 
+
     classDef fuctionStyle fill:#ce3131,stroke-width:2px,color:#000;
-    class FUNCINTAKE1,FUNCINTAKE2,FUNCINTAKE3,FUNCBREAKBEAM,FUNCFEEDER,FUNCFEEDER2,FUNCFEEDER3,FUNCSHOOTER,FUNCSHOOTER2,FUNCSHOOTER3,FUNCDRIVE, fuctionStyle;
+    class FUNCINTAKE1,FUNCINTAKE2,FUNCINTAKE3,FUNCBREAKBEAM,FUNCFEEDER,FUNCFEEDER2,FUNCFEEDER3,FUNCSHOOTER,FUNCSHOOTER2,FUNCSHOOTER3,FUNCDRIVE,FUNCPIVOT1,FUNCPIVOT2,FUNCPIVOT3 fuctionStyle;
 
     classDef invisible fill:none,stroke:none,color:transparent;
     class invisibleShooterGroup,invisibleFeederGroup invisible;
