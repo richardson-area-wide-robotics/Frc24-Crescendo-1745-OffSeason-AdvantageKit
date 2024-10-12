@@ -16,6 +16,7 @@ FUNCTION : Ramp up, Ramp down, and Idle spin};
 FUNCTION : get the robot on chain, unroll and reroll string);
     IntakeSystem-->FeederSystem((Feeder *11*
 FUNCTION : hold note, feed into shooter, and feed back into intake to outake))-->ShooterSystem;
+IntakeSystem-->FUNCINTAKE1;
     NoteSubsystem-->PivotSystem(Pivot
 FUNCTION : move up, move down, go to positions);
     PivotSystem-->PivotLeft(Pivot Left *9*);
@@ -44,8 +45,10 @@ FUNCTION : check if note has been moved]);
     RoboRIO-->MiniPowerModule[(Mini Power Module *3*)]-->ShooterBrakeBeam;
     RADIO[(RADIO
 FUNCTION : communicate between robot and drive station)]-->RoboRIO;
-FUNCINTAKE1(hold note)-->FUNCINTAKE2;
-    FUNCINTAKE2(feed into shooter)-->FUNCINTAKE3;
-    FUNCINTAKE3(feed back into intake to outake)-->ShooterSyst
+FUNCINTAKE1[/Hold note/]-->FUNCINTAKE2;
+    FUNCINTAKE2[/Feed note into shooter/];
+
+classDef fuctionStyle fill:#f9c,stroke:#333,stroke-width:2px,color:#000;
+    class FUNCINTAKE1,FUNCINTAKE2,FUNCINTAKE3 fuctionStyle;
 
 ```
