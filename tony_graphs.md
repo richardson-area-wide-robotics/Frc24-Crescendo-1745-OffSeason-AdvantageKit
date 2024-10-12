@@ -24,8 +24,8 @@ FUNCTION : Brain of the robot, controls all subsystems}}==>DriveTrain;
     RoboRIO==>NoteSubsystem((Note Subsystem));
     NoteSubsystem==>IntakeSystem((Intake *15*));
     NoteSubsystem==>ShooterSystem;
-    RoboRIO==>ClimberSystem(Climber *17*
-FUNCTION : get the robot on chain, unroll and reroll string);
+    RoboRIO==>ClimberSystem(Climber *17*);
+    ClimberSystem==>FUNCCLIMBER1
     IntakeSystem==>FeederSystem((Feeder *11*))==>ShooterSystem;
     IntakeSystem==>FUNCINTAKE1;
     NoteSubsystem==>PivotSystem(Pivot);
@@ -59,6 +59,9 @@ FUNCTION : communicate between robot and drive station)]==>RoboRIO;
     FUNCSHOOTER[/Hold Note/] ==>FUNCSHOOTER2;
     FUNCSHOOTER2[/Feed into intake/];
 
+    FUNCCLIMBER1[/Hold Note/]==>FUNCCLIMBER2
+    FUNCCLIMBER2[/Hold Note/]
+
     PivotSystem==>FUNCPIVOT1[/Move up/]==>FUNCPIVOT2;
     FUNCPIVOT2[/Move down/]==>FUNCPIVOT3;
     FUNCPIVOT3[/Go to position/];
@@ -67,7 +70,7 @@ FUNCTION : communicate between robot and drive station)]==>RoboRIO;
 
 
     classDef fuctionStyle fill:#ce3131,stroke-width:2px,color:#000;
-    class FUNCINTAKE1,FUNCINTAKE2,FUNCINTAKE3,FUNCBREAKBEAM,FUNCFEEDER,FUNCFEEDER2,FUNCFEEDER3,FUNCSHOOTER,FUNCSHOOTER2,FUNCSHOOTER3,FUNCDRIVE,FUNCPIVOT1,FUNCPIVOT2,FUNCPIVOT3 fuctionStyle;
+    class FUNCINTAKE1,FUNCINTAKE2,FUNCINTAKE3,FUNCBREAKBEAM,FUNCFEEDER,FUNCFEEDER2,FUNCFEEDER3,FUNCSHOOTER,FUNCSHOOTER2,FUNCSHOOTER3,FUNCDRIVE,FUNCPIVOT1,FUNCPIVOT2,FUNCPIVOT3,FUNCCLIMBER1,FUNCCLIMBER2 fuctionStyle;
 
     classDef invisible fill:none,stroke:none,color:transparent;
     class invisibleShooterGroup,invisibleFeederGroup invisible;
