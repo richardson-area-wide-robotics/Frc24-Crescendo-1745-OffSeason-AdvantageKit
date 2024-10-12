@@ -13,8 +13,8 @@ FUNCTION : Ramp up, Ramp down, and Idle spin};
     ShooterSystem-->ShooterRight{Shooter Right *13*};
     RoboRIO-->ClimberSystem(Climber *17*
 FUNCTION : get the robot on chain, unroll and reroll string);
-    IntakeSystem-->FeederSystem((Feeder *11*
-FUNCTION : hold note, feed into shooter, and feed back into intake to outake))-->ShooterSystem;
+    IntakeSystem-->FeederSystem((Feeder *11*))-->ShooterSystem;
+FeederSystem -->FUNCFEEDER;
 IntakeSystem-->FUNCINTAKE1;
     NoteSubsystem-->PivotSystem(Pivot
 FUNCTION : move up, move down, go to positions);
@@ -47,10 +47,14 @@ FUNCTION : communicate between robot and drive station)]-->RoboRIO;
 FUNCINTAKE1[/Intake/Outtake/]-->FUNCINTAKE2;
     FUNCINTAKE2[/Feed note into shooter/];
 FUNCBREAKBEAM[/Detect Note/];
+FUNCFEEDER[/Hold Note/] -->FUNCFEEDER2;
+    FUNCFEEDER2[/Feed into shooter/] --> FUNCFEEDER3;
+    FUNCFEEDER3[/Feed into intake Note/];
+
 PDH(Power Distribution Hub)
 
 classDef fuctionStyle fill:#ce3131,stroke-width:2px,color:#000;
-    class FUNCINTAKE1,FUNCINTAKE2,FUNCINTAKE3,FUNCBREAKBEAM fuctionStyle;
+    class FUNCINTAKE1,FUNCINTAKE2,FUNCINTAKE3,FUNCBREAKBEAM,FUNCFEEDER,FUNCFEEDER2,FUNCFEEDER3 fuctionStyle;
 
 classDef powerStyle fill:#ff7f50,stroke-width:2px,color:#000;
     class PDH powerStyle;
