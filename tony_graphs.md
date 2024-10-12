@@ -47,8 +47,13 @@ FUNCTION : communicate between robot and drive station)]-->RoboRIO;
 FUNCINTAKE1[/Intake/Outtake/]-->FUNCINTAKE2;
     FUNCINTAKE2[/Feed note into shooter/];
 FUNCBREAKBEAM[/Detect Note/];
+PDH(Power Distribution Hub)
 
-classDef fuctionStyle fill:#f00,stroke:#333,stroke-width:2px,color:#000;
+classDef fuctionStyle fill:#ce3131,stroke-width:2px,color:#000;
     class FUNCINTAKE1,FUNCINTAKE2,FUNCINTAKE3,FUNCBREAKBEAM fuctionStyle;
+
+classDef powerStyle fill:#ff7f50,stroke-width:2px,color:#000;
+    class PDH powerStyle;
+
 
 ```
