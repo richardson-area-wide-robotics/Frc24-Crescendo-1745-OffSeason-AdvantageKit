@@ -55,6 +55,7 @@ FUNCTION : move up, move down, go to positions);
     RoboRIO==>ShooterBrakeBeam([Brake Beam *1*
 FUNCTION : check if note has been moved]);
     RoboRIO==>MiniPowerModule[(Mini Power Module *3*)]==>ShooterBrakeBeam;
+    MiniPowerModule[(Mini Power Module *3*)]==>BrakeBeamNote;
     RADIO[(RADIO
 FUNCTION : communicate between robot and drive station)]==>RoboRIO;
     FUNCINTAKE1[/Intake/Outtake/]==>FUNCINTAKE2;
