@@ -20,8 +20,8 @@ subgraph invisibleFeederGroup
     RoboRIO{{RoboRIO
 FUNCTION : Brain of the robot, controls all subsystems}}==>DriveTrain;
     DriveTrain(Drive Train);
-    RoboRIO==>NoteSubsystem((Note Subsystem
-FUNCTION : Intake, outake, transport, and shoot a note));
+    DriveTrain==>FUNCDRIVE[/Drive Robot/];
+    RoboRIO==>NoteSubsystem((Note Subsystem));
     NoteSubsystem==>IntakeSystem((Intake *15*));
     NoteSubsystem==>ShooterSystem;
     RoboRIO==>ClimberSystem(Climber *17*
@@ -63,7 +63,6 @@ FUNCTION : communicate between robot and drive station)]==>RoboRIO;
     FUNCSHOOTER[/Hold Note/] ==>FUNCSHOOTER2;
     FUNCSHOOTER2[/Feed into shooter/] ==> FUNCSHOOTER3;
     FUNCSHOOTER3[/Feed into intake Note/];
-    DriveTrain==>FUNCDRIVE[/Drive Robot/];
     PDH(Power Distribution Hub);
 
     classDef fuctionStyle fill:#ce3131,stroke-width:2px,color:#000;
