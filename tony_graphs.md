@@ -74,7 +74,7 @@ FUNCTION : communicate between robot and drive station)]==>RoboRIO;
     class invisibleShooterGroup,invisibleFeederGroup invisible;
 
     classDef powerStyle fill:#ff7f50,stroke-width:2px,color:#000;
-    class PDH powerStyle;
+    class PDH,MiniPowerModule powerStyle;
 
     linkStyle default interpolate basis;
 
