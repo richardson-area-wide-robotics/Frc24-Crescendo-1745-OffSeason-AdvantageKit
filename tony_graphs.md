@@ -7,8 +7,8 @@ FUNCTION : drive the robot );
     RoboRIO-->NoteSubsystem((Note Subsystem
 FUNCTION : Intake, outake, transport, and shoot a note));
     NoteSubsystem-->IntakeSystem((Intake *15*));
-    NoteSubsystem-->ShooterSystem{Shooter
-FUNCTION : Ramp up, Ramp down, and Idle spin};
+    NoteSubsystem-->ShooterSystem{Shooter};
+    ShooterSystem-->FUNCSHOOTER;
     ShooterSystem-->ShooterLeft{Shooter Left *14*};
     ShooterSystem-->ShooterRight{Shooter Right *13*};
     RoboRIO-->ClimberSystem(Climber *17*
@@ -50,11 +50,14 @@ FUNCBREAKBEAM[/Detect Note/];
 FUNCFEEDER[/Hold Note/] -->FUNCFEEDER2;
     FUNCFEEDER2[/Feed into shooter/] --> FUNCFEEDER3;
     FUNCFEEDER3[/Feed into intake Note/];
+FUNCSHOOTER[/Hold Note/] -->FUNCSHOOTER2;
+    FUNCSHOOTER2[/Feed into shooter/] --> FUNCSHOOTER3;
+    FUNCSHOOTER3[/Feed into intake Note/];
 
 PDH(Power Distribution Hub)
 
 classDef fuctionStyle fill:#ce3131,stroke-width:2px,color:#000;
-    class FUNCINTAKE1,FUNCINTAKE2,FUNCINTAKE3,FUNCBREAKBEAM,FUNCFEEDER,FUNCFEEDER2,FUNCFEEDER3 fuctionStyle;
+    class FUNCINTAKE1,FUNCINTAKE2,FUNCINTAKE3,FUNCBREAKBEAM,FUNCFEEDER,FUNCFEEDER2,FUNCFEEDER3,FUNCSHOOTER,FUNCSHOOTER2,FUNCSHOOTER3 fuctionStyle;
 
 classDef powerStyle fill:#ff7f50,stroke-width:2px,color:#000;
     class PDH powerStyle;
