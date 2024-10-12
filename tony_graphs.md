@@ -8,12 +8,12 @@ graph LR;
         ShooterSystem==>FUNCSHOOTER;
         ShooterSystem==>ShooterLeft(Shooter Left
 1 motor
-motor ID = *14*);
+Neo Vortex  motor ID = *14*);
         PDH==>|Slot 12|ShooterLeft
 
         ShooterSystem==>ShooterRight(Shooter Right
 1 motor
-motor ID = *13*);
+Neo Vortex  motor ID = *13*);
         PDH==>|Slot 10|ShooterRight
     end
 
@@ -21,7 +21,7 @@ motor ID = *13*);
         direction LR
         FeederSystem==>Feeder(Kicker
 1 motor
-Motor ID = *11*)
+Neo Vortex  Motor ID = *11*)
         FeederSystem ==>FUNCFEEDER;
         FUNCFEEDER[/Hold Note/] ==>FUNCFEEDER2;
         FUNCFEEDER2[/Feed into shooter/] ==> FUNCFEEDER3;
@@ -41,7 +41,7 @@ Motor ID = *11*)
     subgraph ClimberGroup
         direction LR
         ClimberSystem(Climber);
-        ClimberSystem==>ClimberMotor(Motor ID = *17*);
+        ClimberSystem==>ClimberMotor(Neo  Motor ID = *17*);
         ClimberSystem==>FUNCCLIMBER1;
     end
 
@@ -50,11 +50,11 @@ Motor ID = *11*)
         NoteSubsystem==>PivotSystem(Pivot);
         PivotSystem==>PivotLeft(Pivot Left
 1 motor
-motor ID = *9*);
+Neo Vortex  motor ID = *9*);
         PDH==>|Slot 15|PivotLeft
         PivotSystem==>PivotRight(Pivot Right
 1 motor
-motor ID = *10*);
+Neo Vortex  motor ID = *10*);
         PDH==>|Slot 11|PivotRight
     end
 
@@ -97,9 +97,9 @@ FUNCTION : Brain of the robot, controls all subsystems}}==>DriveTrain;
     ShooterSystem==>ShooterBrakeBeam([Brake Beam *1*]);
     
     FUNCINTAKE1[/Intake/Outtake/]==>FUNCINTAKE2;
-    FUNCINTAKE2[/Feed note into shooter/];
+    FUNCINTAKE2[/Feed note into Feeder/];
     FUNCSHOOTER[/Hold Note/] ==>FUNCSHOOTER2;
-    FUNCSHOOTER2[/Feed into intake/];
+    FUNCSHOOTER2[/Shoot Note/];
 
     FUNCCLIMBER1[/Climb up/]==>FUNCCLIMBER2
     FUNCCLIMBER2[/Climb down/]
@@ -109,7 +109,7 @@ FUNCTION : Brain of the robot, controls all subsystems}}==>DriveTrain;
     FUNCPIVOT3[/Go to position/];
 
     classDef fuctionStyle fill:#ce3131,stroke-width:2px,color:#000;
-    class FUNCINTAKE1,FUNCINTAKE2,FUNCINTAKE3,FUNCBREAKBEAM,FUNCFEEDER,FUNCFEEDER2,FUNCFEEDER3,FUNCSHOOTER,FUNCSHOOTER2,FUNCSHOOTER3,FUNCDRIVE,FUNCPIVOT1,FUNCPIVOT2,FUNCPIVOT3,FUNCCLIMBER1,FUNCCLIMBER2 fuctionStyle;
+    class FUNCINTAKE1,FUNCINTAKE2,FUNCINTAKE3,FUNCBREAKBEAM,FUNCFEEDER,FUNCFEEDER2,FUNCFEEDER3,FUNCSHOOTER,FUNCSHOOTER2,FUNCSHOOTER3,FUNCDRIVE,FUNCPIVOT1,FUNCPIVOT2,FUNCPIVOT3,FUNC1,FUNC2 fuctionStyle;
 
     classDef invisible fill:none,stroke:none,color:transparent;
     class invisibleShooterGroup,IntakeGroup,FeederGroup,ShooterGroup,PivotGroup,DriveTrainGroup,EncoderGroup,SwerveGroup,ClimberGroup invisible;
