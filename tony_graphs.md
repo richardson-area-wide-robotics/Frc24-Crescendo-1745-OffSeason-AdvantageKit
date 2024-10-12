@@ -61,9 +61,9 @@ motor ID = *10*);
     MaxFL==>EncoderFL[[Absolute Encoder]];
     MaxBR==>EncoderBR[[Absolute Encoder]];
     MaxBL==>EncoderBL[[Absolute Encoder]];
-    PivotSystem==>PivotEncoder[[Absolute Encoder]];
+    PivotLeft==>PivotEncoder[[Absolute Encoder]];
     IntakeSystem===>BrakeBeamNote([Brake Beam *2*])==>FeederSystem;
-    RoboRIO==>ShooterBrakeBeam([Brake Beam *1*]);
+    ShooterSystem==>ShooterBrakeBeam([Brake Beam *1*]);
     RoboRIO==>MiniPowerModule[\Mini Power Module *3*/]==>ShooterBrakeBeam;
     MiniPowerModule==>BrakeBeamNote;
     RADIO[(RADIO
