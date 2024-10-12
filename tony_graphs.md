@@ -8,9 +8,12 @@ graph TD;
         ShooterSystem==>ShooterLeft(Shooter Left
 1 motor
 motor ID = *14*);
+        PDH==>|Slot 12|ShooterLeft
+
         ShooterSystem==>ShooterRight(Shooter Right
 1 motor
 motor ID = *13*);
+    PDH==>|Slot 10|ShooterRight
     end
 
 subgraph invisibleFeederGroup
