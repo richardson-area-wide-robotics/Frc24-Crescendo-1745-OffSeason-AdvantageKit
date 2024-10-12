@@ -8,7 +8,7 @@ graph TD;
         ShooterSystem==>ShooterLeft(Shooter Left
 1 motor
 motor ID = *14*);
-        PDH==>|Slot 12|ShooterLeft
+    PDH==>|Slot 12|ShooterLeft
 
         ShooterSystem==>ShooterRight(Shooter Right
 1 motor
@@ -18,7 +18,7 @@ motor ID = *13*);
 
 subgraph invisibleFeederGroup
         direction LR
-        FeederMoter ==>FUNCFEEDER;
+        FeederSystem ==>FUNCFEEDER;
         FUNCFEEDER[/Hold Note/] ==>FUNCFEEDER2;
         FUNCFEEDER2[/Feed into shooter/] ==> FUNCFEEDER3;
         FUNCFEEDER3[/Feed into intake Note/];
@@ -34,10 +34,10 @@ FUNCTION : Brain of the robot, controls all subsystems}}==>DriveTrain;
     NoteSubsystem==>ShooterSystem;
     RoboRIO==>ClimberSystem(Climber);
     ClimberSystem==>ClimberMotor(Moter ID = *17*)
-    ClimberMotor==>FUNCCLIMBER1
+    ClimberSystem==>FUNCCLIMBER1
     IntakeSystem==>FeederSystem((Feeder))==>ShooterSystem;
     FeederSystem==>FeederMoter(Motor ID = *11*)
-    IntakeMotor==>FUNCINTAKE1;
+    IntakeSystem==>FUNCINTAKE1;
     NoteSubsystem==>PivotSystem(Pivot);
     PivotSystem==>PivotLeft(Pivot Left
 1 motor
