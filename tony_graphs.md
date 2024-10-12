@@ -64,8 +64,8 @@ motor ID = *10*);
     PivotSystem==>PivotEncoder[[Absolute Encoder]];
     IntakeSystem===>BrakeBeamNote([Brake Beam *2*])==>FeederSystem;
     RoboRIO==>ShooterBrakeBeam([Brake Beam *1*]);
-    RoboRIO==>MiniPowerModule[(Mini Power Module *3*)]==>ShooterBrakeBeam;
-    MiniPowerModule[(Mini Power Module *3*)]==>BrakeBeamNote;
+    RoboRIO==>MiniPowerModule[\Mini Power Module *3*/]==>ShooterBrakeBeam;
+    MiniPowerModule==>BrakeBeamNote;
     RADIO[(RADIO
 FUNCTION : communicate between robot and drive station)]==>RoboRIO;
     FUNCINTAKE1[/Intake/Outtake/]==>FUNCINTAKE2;
@@ -80,7 +80,7 @@ FUNCTION : communicate between robot and drive station)]==>RoboRIO;
     FUNCPIVOT2[/Move down/]==>FUNCPIVOT3;
     FUNCPIVOT3[/Go to position/];
 
-    PDH(Power Distribution Hub);
+    PDH{{Power Distribution Hub}};
 
 
     classDef fuctionStyle fill:#ce3131,stroke-width:2px,color:#000;
