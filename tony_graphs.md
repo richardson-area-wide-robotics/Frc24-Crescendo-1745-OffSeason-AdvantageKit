@@ -44,6 +44,8 @@ FUNCTION : check if note has been moved]);
     RoboRIO-->MiniPowerModule[(Mini Power Module *3*)]-->ShooterBrakeBeam;
     RADIO[(RADIO
 FUNCTION : communicate between robot and drive station)]-->RoboRIO;
-
+FUNCINTAKE1(hold note)-->FUNCINTAKE2;
+    FUNCINTAKE2(feed into shooter)-->FUNCINTAKE3;
+    FUNCINTAKE3(feed back into intake to outake)-->ShooterSyst
 
 ```
