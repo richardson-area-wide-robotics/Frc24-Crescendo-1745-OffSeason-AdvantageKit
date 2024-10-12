@@ -8,7 +8,7 @@ graph TD;
         ShooterSystem==>ShooterLeft(Shooter Left
 1 motor
 motor ID = *14*);
-    PDH==>|Slot 12|ShooterLeft
+        PDH==>|Slot 12|ShooterLeft
 
         ShooterSystem==>ShooterRight(Shooter Right
 1 motor
@@ -18,7 +18,7 @@ motor ID = *13*);
 
 subgraph invisibleFeederGroup
         direction LR
-        FeederSystem ==>FUNCFEEDER;
+        FeederSystem  ==>FUNCFEEDER;
         FUNCFEEDER[/Hold Note/] ==>FUNCFEEDER2;
         FUNCFEEDER2[/Feed into shooter/] ==> FUNCFEEDER3;
         FUNCFEEDER3[/Feed into intake Note/];
@@ -42,9 +42,11 @@ FUNCTION : Brain of the robot, controls all subsystems}}==>DriveTrain;
     PivotSystem==>PivotLeft(Pivot Left
 1 motor
 motor ID = *9*);
+    PDH==>|Slot 15|PivotLeft
     PivotSystem==>PivotRight(Pivot Right
 1 motor
 motor ID = *10*);
+    PDH==>|Slot 11|PivotRight
     DriveTrain==>FrontRightSwerve(Front Right Swerve);
     DriveTrain==>FrontLeftSwerve(Front Left Swerve);
     DriveTrain==>BackRightSwerve(Back Right Swerve);
