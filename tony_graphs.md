@@ -6,8 +6,7 @@ FUNCTION : Brain of the robot, controls all subsystems}}-->DriveTrain;
 FUNCTION : drive the robot );
     RoboRIO-->NoteSubsystem((Note Subsystem
 FUNCTION : Intake, outake, transport, and shoot a note));
-    NoteSubsystem-->IntakeSystem((Intake *15*
-FUNCTION : intake, idle, pass to feeder, and outtake));
+    NoteSubsystem-->IntakeSystem((Intake *15*));
     NoteSubsystem-->ShooterSystem{Shooter
 FUNCTION : Ramp up, Ramp down, and Idle spin};
     ShooterSystem-->ShooterLeft{Shooter Left *14*};
@@ -38,17 +37,18 @@ FUNCTION : move up, move down, go to positions);
     MaxBR-->EncoderBR[[Absolute Encoder]];
     MaxBL-->EncoderBL[[Absolute Encoder]];
     PivotSystem-->PivotEncoder[[Absolute Encoder]];
-    IntakeSystem--->BrakeBeamNote((Brake Beam *2*
-FUNCTION : check if note has been moved))-->FeederSystem;
+    IntakeSystem--->BrakeBeamNote((Brake Beam *2*))-->FeederSystem;
+    BrakeBeamNote-->FUNCBREAKBEAM;
     RoboRIO-->ShooterBrakeBeam([Brake Beam *1*
 FUNCTION : check if note has been moved]);
     RoboRIO-->MiniPowerModule[(Mini Power Module *3*)]-->ShooterBrakeBeam;
     RADIO[(RADIO
 FUNCTION : communicate between robot and drive station)]-->RoboRIO;
-FUNCINTAKE1[/Hold note/]-->FUNCINTAKE2;
+FUNCINTAKE1[/Intake/Outtake/]-->FUNCINTAKE2;
     FUNCINTAKE2[/Feed note into shooter/];
+FUNCBREAKBEAM[/Detect Note/];
 
-classDef fuctionStyle fill:#f9c,stroke:#333,stroke-width:2px,color:#000;
-    class FUNCINTAKE1,FUNCINTAKE2,FUNCINTAKE3 fuctionStyle;
+classDef fuctionStyle fill:#f00,stroke:#333,stroke-width:2px,color:#000;
+    class FUNCINTAKE1,FUNCINTAKE2,FUNCINTAKE3,FUNCBREAKBEAM fuctionStyle;
 
 ```
