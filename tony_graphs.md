@@ -5,8 +5,12 @@ graph TD;
         direction LR
         ShooterSystem{Shooter};
         ShooterSystem==>FUNCSHOOTER;
-        ShooterSystem==>ShooterLeft{Shooter Left *14*};
-        ShooterSystem==>ShooterRight{Shooter Right *13*};
+        ShooterSystem==>ShooterLeft{Shooter Left
+1 motor
+motor ID = *14*};
+        ShooterSystem==>ShooterRight{Shooter Right
+1 motor
+motor ID = *13*};
     end
 
 subgraph invisibleFeederGroup
@@ -22,15 +26,25 @@ FUNCTION : Brain of the robot, controls all subsystems}}==>DriveTrain;
     DriveTrain(Drive Train);
     DriveTrain==>FUNCDRIVE[/Drive Robot/];
     RoboRIO==>NoteSubsystem((Note Subsystem));
-    NoteSubsystem==>IntakeSystem((Intake *15*));
+    NoteSubsystem==>IntakeSystem((Intake
+1 motor
+motor ID = *15*));
     NoteSubsystem==>ShooterSystem;
-    RoboRIO==>ClimberSystem(Climber *17*);
+    RoboRIO==>ClimberSystem(Climber
+1 motor
+motor ID = *17*);
     ClimberSystem==>FUNCCLIMBER1
-    IntakeSystem==>FeederSystem((Feeder *11*))==>ShooterSystem;
+    IntakeSystem==>FeederSystem((Feeder
+1 motor
+motor ID = *11*))==>ShooterSystem;
     IntakeSystem==>FUNCINTAKE1;
     NoteSubsystem==>PivotSystem(Pivot);
-    PivotSystem==>PivotLeft(Pivot Left *9*);
-    PivotSystem==>PivotRight(Pivot Right *10*);
+    PivotSystem==>PivotLeft(Pivot Left
+1 motor
+motor ID = *9*);
+    PivotSystem==>PivotRight(Pivot Right
+1 motor
+motor ID = *10*);
     DriveTrain==>FrontRightSwerve(Front Right Swerve);
     DriveTrain==>FrontLeftSwerve(Front Left Swerve);
     DriveTrain==>BackRightSwerve(Back Right Swerve);
