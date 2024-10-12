@@ -70,8 +70,8 @@ FUNCTION : communicate between robot and drive station)]==>RoboRIO;
     FUNCSHOOTER[/Hold Note/] ==>FUNCSHOOTER2;
     FUNCSHOOTER2[/Feed into intake/];
 
-    FUNCCLIMBER1[/Hold Note/]==>FUNCCLIMBER2
-    FUNCCLIMBER2[/Hold Note/]
+    FUNCCLIMBER1[/Climb up/]==>FUNCCLIMBER2
+    FUNCCLIMBER2[/Climb down/]
 
     PivotSystem==>FUNCPIVOT1[/Move up/]==>FUNCPIVOT2;
     FUNCPIVOT2[/Move down/]==>FUNCPIVOT3;
