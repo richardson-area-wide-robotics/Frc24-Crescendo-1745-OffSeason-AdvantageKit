@@ -1,4 +1,5 @@
 ```mermaid
+
 graph LR;
     PDH{{Power Distribution Hub}};
     
@@ -130,7 +131,18 @@ FUNCTION : Brain of the robot, controls all subsystems}}==>DriveTrain;
     PDH==>|Slot 16|MaxBR
     PDH==>|Slot 17|VortexBR
     PDH==>|Slot 4|VortexBL
-
-
+%% NOT //PDH //13,5,6,7,8,9,10,1,3,11,12,13,14,15,16,17,18,19,21,20,23,25,26,27,28.29,30,31,32,33,34.35,36,37,38,39,40,41,42,43,44,45,47,48,49,50,51,52,53,
+    linkStyle 4 stroke-width:4px,fill:none,stroke:orange;
+    linkStyle 2 stroke-width:4px,fill:none,stroke:orange;
+    linkStyle 22 stroke-width:4px,fill:none,stroke:orange;
+    linkStyle 24 stroke-width:4px,fill:none,stroke:orange;
+    linkStyle 46 stroke-width:4px,fill:none,stroke:orange;
+    linkStyle 54 stroke-width:4px,fill:none,stroke:orange;
+    linkStyle 55 stroke-width:4px,fill:none,stroke:orange;
+    linkStyle 56 stroke-width:4px,fill:none,stroke:orange;
+    linkStyle 57 stroke-width:4px,fill:none,stroke:orange;
+    linkStyle 58 stroke-width:4px,fill:none,stroke:orange;
+    linkStyle 59 stroke-width:4px,fill:none,stroke:orange;
+    linkStyle 60 stroke-width:4px,fill:none,stroke:orange;
 
 ```
