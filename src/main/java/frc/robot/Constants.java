@@ -13,23 +13,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.units.Distance;
-import static edu.wpi.first.units.Units.*;
-import edu.wpi.first.units.Measure;
-import edu.wpi.first.units.Angle;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.util.Units;
-
-import com.revrobotics.CANSparkBase;
-import com.revrobotics.CANSparkBase.IdleMode;
-import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
-import com.pathplanner.lib.util.PIDConstants;
-import com.pathplanner.lib.util.ReplanningConfig;
-import edu.wpi.first.math.controller.PIDController;
-import frc.lib.controller.PIDGains;
-import frc.lib.swerve.SwerveModuleConstants;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
