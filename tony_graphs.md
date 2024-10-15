@@ -109,7 +109,7 @@ FUNCTION : Brain of the robot, controls all subsystems}}==>DriveTrain;
     FUNCPIVOT3[/Go to position/];
 
     classDef fuctionStyle fill:#ce3131,stroke-width:2px,color:#000;
-    class FUNCINTAKE1,FUNCINTAKE2,FUNCINTAKE3,FUNCBREAKBEAM,FUNCFEEDER,FUNCFEEDER2,FUNCFEEDER3,FUNCSHOOTER,FUNCSHOOTER2,FUNCSHOOTER3,FUNCDRIVE,FUNCPIVOT1,FUNCPIVOT2,FUNCPIVOT3,FUNC1,FUNC2 fuctionStyle;
+    class FUNCINTAKE1,FUNCINTAKE2,FUNCINTAKE3,FUNCBREAKBEAM,FUNCFEEDER,FUNCFEEDER2,FUNCFEEDER3,FUNCSHOOTER,FUNCSHOOTER2,FUNCSHOOTER3,FUNCDRIVE,FUNCPIVOT1,FUNCPIVOT2,FUNCPIVOT3,FUNC1,FUNC2,FUNCCLIMBER2,FUNCCLIMBER1 fuctionStyle;
 
     classDef invisible fill:none,stroke:none,color:transparent;
     class invisibleShooterGroup,IntakeGroup,FeederGroup,ShooterGroup,PivotGroup,DriveTrainGroup,EncoderGroup,SwerveGroup,ClimberGroup invisible;
