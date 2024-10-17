@@ -150,4 +150,7 @@ FUNCTION : Brain of the robot, controls all subsystems}}==>DriveTrain;
     linkStyle 64 stroke-width:4px,fill:none,stroke:orange;
     linkStyle 15 stroke-width:4px,fill:none,stroke:orange;
 
+
+    RoboRIO-->GRYO{GRYO};
+
 ```
