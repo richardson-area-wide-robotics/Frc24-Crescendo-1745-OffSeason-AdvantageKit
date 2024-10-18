@@ -169,7 +169,13 @@ out/
 .fleet
 
 # Simulation GUI and other tools window save file
-simgui*.json
+*-window.json
+networktables.json
+simgui.json
+simgui-ds.json
 
-# Version file
+# Build Constants
 src/main/java/frc/robot/BuildConstants.java
+
+# Battery Tracker
+previous_battery.txt
