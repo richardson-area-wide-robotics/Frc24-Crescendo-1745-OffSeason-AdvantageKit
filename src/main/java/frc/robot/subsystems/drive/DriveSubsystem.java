@@ -157,7 +157,7 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
 
   public final Command ANTI_TIP_COMMAND = new FunctionalCommand(
     () -> LEDSubsystem.getInstance().startOverride(Pattern.RED_STROBE),
-    () -> antiTip(),
+          this::antiTip,
     (interrupted) -> {
       resetRotatePID();
       stop();
@@ -265,7 +265,7 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
 
     // Setup path logging callback
     PathPlannerLogging.setLogActivePathCallback((poses) -> {
-      if (poses.size() < 1) return;
+      if (poses.isEmpty()) return;
       var trajectory = TrajectoryGenerator.generateTrajectory(
         poses,
         new TrajectoryConfig(DRIVE_MAX_LINEAR_SPEED, DRIVE_AUTO_ACCELERATION)
@@ -278,81 +278,82 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
     VisionSubsystem.getInstance().setPoseSupplier(this::getPose);
   }
 
-  /**
-   * Initialize hardware devices for drive subsystem
-   * @return Hardware object containing all necessary devices for this subsystem
-   */
-  public static Hardware initializeHardware() {
-    NavX2 navx = new NavX2(Constants.DriveHardware.NAVX_ID, GlobalConstants.ROBOT_LOOP_HZ * 2);
+/**
+ * Initialize hardware devices for drive subsystem
+ * @return Hardware object containing all necessary devices for this subsystem
+ */
+public static Hardware initializeHardware() {
+  NavX2 navx = new NavX2(Constants.DriveHardware.NAVX_ID, GlobalConstants.ROBOT_LOOP_HZ * 2);
 
-    MAXSwerveModule lFrontModule = new MAXSwerveModule(
-      MAXSwerveModule.initializeHardware(
-        Constants.DriveHardware.LEFT_FRONT_DRIVE_MOTOR_ID,
-        Constants.DriveHardware.LEFT_FRONT_ROTATE_MOTOR_ID,
-        MotorKind.NEO_VORTEX
-      ),
-      MAXSwerveModule.ModuleLocation.LeftFront,
-      Constants.Drive.GEAR_RATIO,
-      DRIVE_WHEELBASE,
-      DRIVE_TRACK_WIDTH,
-      AUTO_LOCK_TIME,
-      MAX_SLIPPING_TIME,
-      DRIVE_CURRENT_LIMIT,
-      Constants.Drive.DRIVE_SLIP_RATIO
-    );
+  MAXSwerveModule lFrontModule = new MAXSwerveModule(
+    MAXSwerveModule.initializeHardware(
+      Constants.DriveHardware.LEFT_FRONT_DRIVE_MOTOR_ID,
+      Constants.DriveHardware.LEFT_FRONT_ROTATE_MOTOR_ID,
+      MotorKind.NEO_VORTEX
+    ),
+    MAXSwerveModule.ModuleLocation.LeftFront,
+    Constants.Drive.GEAR_RATIO,
+    DRIVE_WHEELBASE,
+    DRIVE_TRACK_WIDTH,
+    AUTO_LOCK_TIME,
+    MAX_SLIPPING_TIME,
+    DRIVE_CURRENT_LIMIT,
+    Constants.Drive.DRIVE_SLIP_RATIO
+  );
 
-    MAXSwerveModule rFrontModule = new MAXSwerveModule(
-      MAXSwerveModule.initializeHardware(
-        Constants.DriveHardware.RIGHT_FRONT_DRIVE_MOTOR_ID,
-        Constants.DriveHardware.RIGHT_FRONT_ROTATE_MOTOR_ID,
-        MotorKind.NEO_VORTEX
-      ),
-      MAXSwerveModule.ModuleLocation.RightFront,
-      Constants.Drive.GEAR_RATIO,
-      DRIVE_WHEELBASE,
-      DRIVE_TRACK_WIDTH,
-      AUTO_LOCK_TIME,
-      MAX_SLIPPING_TIME,
-      DRIVE_CURRENT_LIMIT,
-      Constants.Drive.DRIVE_SLIP_RATIO
-    );
+  // Inverted back left and front right motors
+  MAXSwerveModule rFrontModule = new MAXSwerveModule(
+    MAXSwerveModule.initializeHardware(
+      Constants.DriveHardware.LEFT_REAR_DRIVE_MOTOR_ID,  // Swapped with left rear
+      Constants.DriveHardware.LEFT_REAR_ROTATE_MOTOR_ID, // Swapped with left rear
+      MotorKind.NEO_VORTEX
+    ),
+    MAXSwerveModule.ModuleLocation.RightFront,
+    Constants.Drive.GEAR_RATIO,
+    DRIVE_WHEELBASE,
+    DRIVE_TRACK_WIDTH,
+    AUTO_LOCK_TIME,
+    MAX_SLIPPING_TIME,
+    DRIVE_CURRENT_LIMIT,
+    Constants.Drive.DRIVE_SLIP_RATIO
+  );
 
-    MAXSwerveModule lRearModule = new MAXSwerveModule(
-      MAXSwerveModule.initializeHardware(
-        Constants.DriveHardware.LEFT_REAR_DRIVE_MOTOR_ID,
-        Constants.DriveHardware.LEFT_REAR_ROTATE_MOTOR_ID,
-        MotorKind.NEO_VORTEX
-      ),
-      MAXSwerveModule.ModuleLocation.LeftRear,
-      Constants.Drive.GEAR_RATIO,
-      DRIVE_WHEELBASE,
-      DRIVE_TRACK_WIDTH,
-      AUTO_LOCK_TIME,
-      MAX_SLIPPING_TIME,
-      DRIVE_CURRENT_LIMIT,
-      Constants.Drive.DRIVE_SLIP_RATIO
-    );
+  MAXSwerveModule lRearModule = new MAXSwerveModule(
+    MAXSwerveModule.initializeHardware(
+      Constants.DriveHardware.RIGHT_FRONT_DRIVE_MOTOR_ID,  // Swapped with right front
+      Constants.DriveHardware.RIGHT_FRONT_ROTATE_MOTOR_ID, // Swapped with right front
+      MotorKind.NEO_VORTEX
+    ),
+    MAXSwerveModule.ModuleLocation.LeftRear,
+    Constants.Drive.GEAR_RATIO,
+    DRIVE_WHEELBASE,
+    DRIVE_TRACK_WIDTH,
+    AUTO_LOCK_TIME,
+    MAX_SLIPPING_TIME,
+    DRIVE_CURRENT_LIMIT,
+    Constants.Drive.DRIVE_SLIP_RATIO
+  );
 
-    MAXSwerveModule rRearModule = new MAXSwerveModule(
-      MAXSwerveModule.initializeHardware(
-        Constants.DriveHardware.RIGHT_REAR_DRIVE_MOTOR_ID,
-        Constants.DriveHardware.RIGHT_REAR_ROTATE_MOTOR_ID,
-        MotorKind.NEO_VORTEX
-      ),
-      MAXSwerveModule.ModuleLocation.RightRear,
-      Constants.Drive.GEAR_RATIO,
-      DRIVE_WHEELBASE,
-      DRIVE_TRACK_WIDTH,
-      AUTO_LOCK_TIME,
-      MAX_SLIPPING_TIME,
-      DRIVE_CURRENT_LIMIT,
-      Constants.Drive.DRIVE_SLIP_RATIO
-    );
+  MAXSwerveModule rRearModule = new MAXSwerveModule(
+    MAXSwerveModule.initializeHardware(
+      Constants.DriveHardware.RIGHT_REAR_DRIVE_MOTOR_ID,
+      Constants.DriveHardware.RIGHT_REAR_ROTATE_MOTOR_ID,
+      MotorKind.NEO_VORTEX
+    ),
+    MAXSwerveModule.ModuleLocation.RightRear,
+    Constants.Drive.GEAR_RATIO,
+    DRIVE_WHEELBASE,
+    DRIVE_TRACK_WIDTH,
+    AUTO_LOCK_TIME,
+    MAX_SLIPPING_TIME,
+    DRIVE_CURRENT_LIMIT,
+    Constants.Drive.DRIVE_SLIP_RATIO
+  );
 
-    Hardware drivetrainHardware = new Hardware(navx, lFrontModule, rFrontModule, lRearModule, rRearModule);
+  Hardware drivetrainHardware = new Hardware(navx, lFrontModule, rFrontModule, lRearModule, rRearModule);
 
-    return drivetrainHardware;
-  }
+  return drivetrainHardware;
+}
 
   /**
    * Set swerve modules
@@ -386,7 +387,7 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
    * @param yRequest Desired Y (sideways) velocity
    * @param rotateRequest Desired rotate rate
    * @param inertialVelocity Current robot inertial velocity
-   * @param rotateRate Current robot rotate rate
+   * @param controlCentricity Current robot rotate rate
    */
   private void drive(ControlCentricity controlCentricity,
                      Measure<Velocity<Distance>> xRequest,
@@ -414,12 +415,12 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
 
   /**
    * Drive robot without traction control
-   * @param xRequest Desired X (forward) velocity
-   * @param yRequest Desired Y (sideways) velocity
+   *
+   * @param xRequest      Desired X (forward) velocity
+   * @param yRequest      Desired Y (sideways) velocity
    * @param rotateRequest Desired rotate rate
    */
-  private void drive(ControlCentricity controlCentricity,
-                     Measure<Velocity<Distance>> xRequest,
+  private void drive(Measure<Velocity<Distance>> xRequest,
                      Measure<Velocity<Distance>> yRequest,
                      Measure<Velocity<Angle>> rotateRequest) {
     // Get requested chassis speeds, correcting for second order kinematics
@@ -431,7 +432,7 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
     SwerveModuleState[] moduleStates = m_advancedKinematics.toSwerveModuleStates(
       m_desiredChassisSpeeds,
       getPose().getRotation().plus(m_allianceCorrection),
-      controlCentricity
+            ControlCentricity.ROBOT_CENTRIC
     );
 
     // Desaturate drive speeds
@@ -524,8 +525,7 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
 
     // Drive to counter tipping motion
     drive(
-      ControlCentricity.ROBOT_CENTRIC,
-      DRIVE_MAX_LINEAR_SPEED.divide(4).times(Math.cos(direction)),
+            DRIVE_MAX_LINEAR_SPEED.divide(4).times(Math.cos(direction)),
       DRIVE_MAX_LINEAR_SPEED.divide(4).times(Math.sin(direction)),
       Units.DegreesPerSecond.of(0.0)
     );
@@ -537,7 +537,7 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
    * @param yRequest Desired Y axis (sideways) speed [-1.0, +1.0]
    * @param rotateRequest Desired rotate speed (ONLY USED IF POINT IS NULL) [-1.0, +1.0]
    * @param point Target point, pass in null to signify invalid point
-   * @param boolean True to point back of robot to target
+   * @param controlCentricity True to point back of robot to target
    * @param velocityCorrection True to compensate for robot's own velocity
    */
   private void aimAtPoint(ControlCentricity controlCentricity, double xRequest, double yRequest, double rotateRequest, Translation2d point, boolean reversed, boolean velocityCorrection) {
@@ -640,7 +640,7 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
   public Command snapToCardinalDirectionCommand(DoubleSupplier xRequestSupplier, DoubleSupplier yRequestSupplier) {
     return runEnd(
       () -> snapToCardinalDirection(xRequestSupplier.getAsDouble(), yRequestSupplier.getAsDouble()),
-      () -> resetRotatePID()
+            this::resetRotatePID
     );
   }
 
@@ -847,8 +847,7 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
       m_pathFollowerConfig,
       () -> {
         var alliance = DriverStation.getAlliance();
-        if (alliance.isPresent()) return alliance.get() == DriverStation.Alliance.Red;
-        return false;
+          return alliance.filter(value -> value == Alliance.Red).isPresent();
       },
       this
     );
@@ -879,7 +878,7 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
 
   /**
    * Call this repeatedly to drive during autonomous
-   * @param moduleStates Calculated swerve module states
+   * @param speeds Calculated swerve module states
    */
   public void autoDrive(ChassisSpeeds speeds) {
     // Get requested chassis speeds, correcting for second order kinematics
@@ -947,7 +946,7 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
       );
 
     },
-      () -> resetRotatePID()
+            this::resetRotatePID
     );
   }
 
@@ -979,7 +978,6 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
 
   /**
    * Change robot aim by desired angle
-   * @param angleRequestSupplier
    * @return Command that aims robot
    */
   public Command aimAtAngleCommand(DoubleSupplier angleRequestSupplier) {
@@ -1002,7 +1000,7 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
    * @return Command to lock swerve modules
    */
   public Command lockCommand() {
-    return runOnce(() -> lock());
+    return runOnce(this::lock);
   }
 
   /**
@@ -1021,7 +1019,7 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
    * @return Command to toggle traction control
    */
   public Command toggleTractionControlCommand() {
-    return runOnce(() -> toggleTractionControl());
+    return runOnce(this::toggleTractionControl);
   }
 
   /**
@@ -1029,7 +1027,7 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
    * @return Command to toggle control centricity between robot and field centric drive control
    */
   public Command toggleCentricityCommand() {
-    return runOnce(() -> toggleControlCentricity());
+    return runOnce(this::toggleControlCentricity);
   }
 
   /**
@@ -1037,7 +1035,7 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
    * @return Command to enable traction control
    */
   public Command enableTractionControlCommand() {
-    return runOnce(() -> enableTractionControl());
+    return runOnce(this::enableTractionControl);
   }
 
   /**
@@ -1045,7 +1043,7 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
    * @return Command to disable traction control
    */
   public Command disableTractionControlCommand() {
-    return runOnce(() -> disableTractionControl());
+    return runOnce(this::disableTractionControl);
   }
 
   /**
@@ -1062,7 +1060,7 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
    * @return Command to reset pose to current vision estimated pose
    */
   public Command resetPoseToVisionCommand() {
-    return runOnce(() -> resetPoseToVision());
+    return runOnce(this::resetPoseToVision);
   }
 
   /**
@@ -1075,7 +1073,7 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
   public Command goToPoseCommand(PurplePathPose goal, Command parallelCommand, Command endCommand) {
     goal.calculateFinalApproach(getPathConstraints());
     return Commands.sequence(
-      defer(() -> m_purplePathClient.getTrajectoryCommand(goal, parallelCommand).finallyDo(() -> resetRotatePID())),
+      defer(() -> m_purplePathClient.getTrajectoryCommand(goal, parallelCommand).finallyDo(this::resetRotatePID)),
       stopCommand(),
       Commands.parallel(driveCommand(() -> 0.0, () -> 0.0, () -> 0.0), endCommand)
     );
@@ -1096,7 +1094,7 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
         reversed,
         velocityCorrection
       ),
-      () -> resetRotatePID()
+            this::resetRotatePID
     );
 
   }

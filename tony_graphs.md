@@ -2,7 +2,7 @@
 
 graph LR;
     PDH{{Power Distribution Hub}};
-    
+
     subgraph ShooterGroup
         direction LR
         ShooterSystem{Shooter};
@@ -32,7 +32,7 @@ Neo Vortex  Motor ID = *11*)
     subgraph IntakeGroup
         direction LR
         RoboRIO==>NoteSubsystem((Note Subsystem))==>IntakeSystem((Intake));
-        IntakeSystem==>IntakeMotor(Motor ID = *15*)
+        IntakeSystem==>IntakeMotor(Neo Motor ID = *15*)
         IntakeSystem==>FeederSystem((Feeder))==>ShooterSystem;
         IntakeSystem==>FUNCINTAKE1;
         MiniPowerModule==>BrakeBeamNote
@@ -41,7 +41,7 @@ Neo Vortex  Motor ID = *11*)
 
     subgraph ClimberGroup
         direction LR
-        ClimberSystem(Climber);
+        RoboRIO==>ClimberSystem(Climber);
         ClimberSystem==>ClimberMotor(Neo  Motor ID = *17*);
         ClimberSystem==>FUNCCLIMBER1;
     end
@@ -96,7 +96,7 @@ FUNCTION : communicate between robot and drive station)]==>RoboRIO;
 FUNCTION : Brain of the robot, controls all subsystems}}==>DriveTrain;
     RoboRIO==>MiniPowerModule[\Mini Power Module *3*/]==>ShooterBrakeBeam;
     ShooterSystem==>ShooterBrakeBeam([Brake Beam *1*]);
-    
+
     FUNCINTAKE1[/Intake/Outtake/]==>FUNCINTAKE2;
     FUNCINTAKE2[/Feed note into Feeder/];
     FUNCSHOOTER[/Hold Note/] ==>FUNCSHOOTER2;
@@ -131,26 +131,40 @@ FUNCTION : Brain of the robot, controls all subsystems}}==>DriveTrain;
     PDH==>|Slot 16|MaxBR
     PDH==>|Slot 17|VortexBR
     PDH==>|Slot 4|VortexBL
-%% NOT PDH? //13,5,6,7,8,9,10,1,3,11,12,13,14,16,17,18,19,21,20,23,25,26,27,28.29,30,31,32,33,34.35,36,37,38,39,40,41,42,43,44,45,47,48,49,50,51,52,53,
+%% NOT PDH? //13,5,6,7,8,9,10,1,3,11,12,13,14,16,17,18,19,21,20,23,25,26,27,28.29,30,31,32,33,34.35,36,37,38,39,40,41,42,43,44,45,48,49,50,51,52,53,
     linkStyle 4 stroke-width:4px,fill:none,stroke:orange;
+%%
     linkStyle 2 stroke-width:4px,fill:none,stroke:orange;
-    linkStyle 22 stroke-width:4px,fill:none,stroke:orange;
-    linkStyle 24 stroke-width:4px,fill:none,stroke:orange;
-    linkStyle 46 stroke-width:4px,fill:none,stroke:orange;
-    linkStyle 54 stroke-width:4px,fill:none,stroke:orange;
+%%
+    linkStyle 23 stroke-width:4px,fill:none,stroke:orange;
+%% Pivot Left
+    linkStyle 25 stroke-width:4px,fill:none,stroke:orange;
+%% Vortex 10
+    linkStyle 47 stroke-width:4px,fill:none,stroke:orange;
+%% Breakbeam 1
+    linkStyle 65 stroke-width:4px,fill:none,stroke:orange;
+%% Vortex 1
     linkStyle 55 stroke-width:4px,fill:none,stroke:orange;
+%% Vortex 11
     linkStyle 56 stroke-width:4px,fill:none,stroke:orange;
+%% Neo 15
     linkStyle 57 stroke-width:4px,fill:none,stroke:orange;
+%% Vortex 7
     linkStyle 58 stroke-width:4px,fill:none,stroke:orange;
+%%Max 8
     linkStyle 59 stroke-width:4px,fill:none,stroke:orange;
+%% Vortex 5
     linkStyle 60 stroke-width:4px,fill:none,stroke:orange;
+%% Max 6
     linkStyle 61 stroke-width:4px,fill:none,stroke:orange;
+%% Max 2
     linkStyle 62 stroke-width:4px,fill:none,stroke:orange;
+%% Neo 17
     linkStyle 63 stroke-width:4px,fill:none,stroke:orange;
+%% Max 4
     linkStyle 64 stroke-width:4px,fill:none,stroke:orange;
+%% Vortex 3
     linkStyle 15 stroke-width:4px,fill:none,stroke:orange;
-
-
-    RoboRIO-->GRYO{GRYO};
+%% Break Beam 2
 
 ```

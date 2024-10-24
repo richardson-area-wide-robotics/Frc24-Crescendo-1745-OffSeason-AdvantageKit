@@ -22,9 +22,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 public class Robot extends LoggedRobot {
-  private Command m_autonomousCommand;
+  private Command autonomousCommand;
 
-  private RobotContainer m_robotContainer;
+  private RobotContainer robotContainer;
 
   public Robot() {
     super(GlobalConstants.ROBOT_LOOP_PERIOD);
@@ -34,23 +34,18 @@ public class Robot extends LoggedRobot {
   @SuppressWarnings("resource")
   public void robotInit() {
     // AdvantageKit Logging
-    BatteryTracker batteryTracker = new BatteryTracker(BatteryTracker.initializeHardware());
     Logger.recordMetadata("ProjectName", "PurpleSwerve");
     Logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
-    Logger.recordMetadata("BatteryName", batteryTracker.scanBattery());
 
     // Set pathfinding algorithm to be AdvantageKit compatible
     Pathfinding.setPathfinder(new LocalADStarAK());
 
     if (isReal()) {
-      // If robot is real, log to USB drive and publish data to NetworkTables
-      Logger.addDataReceiver(new WPILOGWriter("/media/sda1/"));
-      Logger.addDataReceiver(new NT4Publisher());
+       //If robot is real, log to USB drive and publish data to NetworkTables
+      //Logger.addDataReceiver(new WPILOGWriter("/media/sda1/"));
+      //Logger.addDataReceiver(new NT4Publisher());
       new PowerDistribution();
       // Battery Tracking
-      if (batteryTracker.isBatteryReused())
-        DriverStation.reportError(batteryTracker.scanBattery() + " is being reused!", false);
-      else batteryTracker.writeCurrentBattery();
     } else {
       // Else just publish to NetworkTables for simulation or replay log file if var is set
       String replay = System.getenv(GlobalConstants.REPLAY_ENVIRONMENT_VAR);
@@ -68,9 +63,9 @@ public class Robot extends LoggedRobot {
     }
 
     // Start logging! No more data receivers, replay sources, or metadata values may be added.
-    Logger.start();
+    //Logger.start();
 
-    m_robotContainer = new RobotContainer();
+    robotContainer = new RobotContainer();
   }
 
   @Override
@@ -85,40 +80,31 @@ public class Robot extends LoggedRobot {
   @Override
   public void disabledPeriodic() {}
 
-  @Override
-  public void disabledExit() {}
-
-  @Override
+    @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    autonomousCommand = robotContainer.getAutonomousCommand();
 
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
+    if (autonomousCommand != null) {
+      autonomousCommand.schedule();
     }
   }
 
   @Override
   public void autonomousPeriodic() {}
 
-  @Override
-  public void autonomousExit() {}
-
-  @Override
+    @Override
   public void teleopInit() {
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+    if (autonomousCommand != null) {
+      autonomousCommand.cancel();
     }
   }
 
   @Override
   public void teleopPeriodic() {}
 
-  @Override
-  public void teleopExit() {}
-
-  @Override
+    @Override
   public void simulationPeriodic() {
-    m_robotContainer.simulationPeriodic();
+    robotContainer.simulationPeriodic();
   }
 
   @Override
@@ -130,6 +116,4 @@ public class Robot extends LoggedRobot {
   @Override
   public void testPeriodic() {}
 
-  @Override
-  public void testExit() {}
 }
