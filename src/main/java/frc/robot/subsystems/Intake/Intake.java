@@ -29,6 +29,8 @@ public class Intake extends SubsystemBase {
     m_intakeMotor.setIdleMode(IntakeConstants.kIntakeIdleMode);
     m_intakeMotor.burnFlash();
 
+
+    this.getDefaultCommand();
     }
 
     public void SPINTHEFUCKIGINTAKE()
@@ -41,7 +43,6 @@ public class Intake extends SubsystemBase {
      */
     public Command runIntake() {
         m_intakeState = IntakeState.INTAKE;
-        System.out.println("Intakeing");
         return Commands.run(()-> m_intakeMotor.set(IntakeConstants.kIntakeSpeed), this);
     }
 
