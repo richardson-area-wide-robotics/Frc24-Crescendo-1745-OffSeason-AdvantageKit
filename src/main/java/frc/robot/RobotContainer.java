@@ -4,7 +4,9 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkFlex;
 import com.revrobotics.REVPhysicsSim;
+import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -12,13 +14,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Constants.ShooterConstants.ShooterState;
 import frc.robot.subsystems.Intake.Intake;
+import frc.robot.subsystems.Shooter.Shooter;
 import frc.robot.subsystems.drive.AutoTrajectory;
 import frc.robot.subsystems.drive.DriveSubsystem;
 
 public class RobotContainer {
 
   private static Intake INTAKE_SUBSYSTEM = new Intake();
+
+  private static Shooter SHOOTER_SUBSYSTEM = new Shooter();
 
   private static final DriveSubsystem DRIVE_SUBSYSTEM = new DriveSubsystem(
     DriveSubsystem.initializeHardware(),
@@ -47,6 +53,11 @@ public class RobotContainer {
       )
     );
 
+    SHOOTER_SUBSYSTEM.kickerConfig(new CANSparkFlex(11, MotorType.kBrushless));
+    SHOOTER_SUBSYSTEM.shooterConfig(new CANSparkFlex(13, MotorType.kBrushless), false);
+    SHOOTER_SUBSYSTEM.shooterConfig(new CANSparkFlex(14, MotorType.kBrushless), true);
+
+
     // Setup AutoBuilder
     DRIVE_SUBSYSTEM.configureAutoBuilder();
 
@@ -69,13 +80,19 @@ public class RobotContainer {
     );
 
 
-    PRIMARY_CONTROLLER.leftTrigger().whileTrue(
+    //Intake + Outtake
+    PRIMARY_CONTROLLER.leftBumper().whileTrue(
       INTAKE_SUBSYSTEM.runIntake()
     ).whileFalse(INTAKE_SUBSYSTEM.runStop());
 
-    PRIMARY_CONTROLLER.rightTrigger().whileTrue(
+    PRIMARY_CONTROLLER.rightBumper().whileTrue(
       INTAKE_SUBSYSTEM.runOuttake()
     ).whileFalse(INTAKE_SUBSYSTEM.runStop());
+
+    PRIMARY_CONTROLLER.leftTrigger().onTrue(
+      Commands.runOnce(() -> {
+            SHOOTER_SUBSYSTEM.toggleState(ShooterState.SPEAKER);
+        }, SHOOTER_SUBSYSTEM));
 
     // B button - go to source
     PRIMARY_CONTROLLER.b().whileTrue(DRIVE_SUBSYSTEM.goToPoseCommand(Constants.Field.SOURCE));

@@ -13,6 +13,7 @@ import org.lasarobotics.hardware.revrobotics.Spark;
 import org.lasarobotics.led.LEDStrip;
 import org.lasarobotics.utils.PIDConstants;
 
+import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkBase.IdleMode;
 
 import edu.wpi.first.math.Pair;
@@ -22,10 +23,10 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.units.Units;
 import frc.robot.subsystems.drive.PurplePathPose;
 import frc.robot.subsystems.vision.AprilTagCamera.Resolution;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean
@@ -141,7 +142,7 @@ public final class Constants {
   }
 
 
-      /** Intake Constants */
+    /** Intake Constants */
     public static final class IntakeConstants {
       public static final int kIntakeCANID = 15;
       public static final int kIntakeCurrentLimit = 60;
@@ -156,4 +157,42 @@ public final class Constants {
         OUTTAKE,
       }
     }
+  
+    
+    public static final class ShooterConstants {
+      public static final int kKickerMotorCANID = 12;
+      public static final int kShooterRightCANID = 13;
+      public static final int kShooterLeftCANID = 14;
+
+      public static final int kKickerMotorCurrentLimit = 60;
+      public static final int kShooterMotorCurrentLimit = 60;
+      public static final CANSparkBase.IdleMode kShooterMotorIdleMode = IdleMode.kCoast;
+      public static final CANSparkBase.IdleMode kKickerMotorIdleMode = IdleMode.kCoast;
+
+      public static final boolean kKickerMotorInvert = false;
+      public static final boolean kShooterLeftMotorInverted = true;
+      public static final boolean kShooterRightMotorInverted = false;
+
+      public static final double RIGHT_PERCENT_OF_LEFT = 0.55;
+      public static final double PID_ACTIVE_RANGE = 750.0;
+      public static final double RAMP_SPEED = 0.95;
+      public static final double FEED_FORWARDKS = 0.11331 / 60.0;
+      public static final double FEED_FORWARDKV = 0.060404 / 60.0;
+      public static final double FEED_FORWARDKA = 0.064897 / 60.0;
+
+      public static final double kShooterReverseSpeed = -0.1;
+
+      public static final double PVal = 0.001;
+
+      public static final double REL_ENC_CONVERSION = 2.0;
+
+        public enum ShooterState {
+          IDLE, 
+          INTAKE,
+          OUTTAKE,
+          SPEAKER,
+          AMP,
+          REVERSE
+      }
+  }
 }
