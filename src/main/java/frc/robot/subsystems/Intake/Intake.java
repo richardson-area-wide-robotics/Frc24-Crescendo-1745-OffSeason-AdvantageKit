@@ -47,6 +47,23 @@ public class Intake extends SubsystemBase {
     }
 
     /**
+     * Commands the intake stop
+     */
+    public Command runStop() {
+        m_intakeState = IntakeState.OUTTAKE;
+        return Commands.run(()-> m_intakeMotor.set(0), this);
+    }
+
+     /**
+     * Commands the intake to spin in the negative direction - outtakeing
+     */
+    public Command runOuttake() {
+        m_intakeState = IntakeState.IDLE;
+        return Commands.run(()-> m_intakeMotor.set(IntakeConstants.kOuttakeSpeed), this);
+    }
+
+
+    /**
      * Set the default Command for the subsystem
      */
     public void setDefaultCommand() {
@@ -54,3 +71,4 @@ public class Intake extends SubsystemBase {
     }
     
 } 
+

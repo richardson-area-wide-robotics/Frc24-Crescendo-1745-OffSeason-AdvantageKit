@@ -71,7 +71,11 @@ public class RobotContainer {
 
     PRIMARY_CONTROLLER.leftTrigger().whileTrue(
       INTAKE_SUBSYSTEM.runIntake()
-    );
+    ).whileFalse(INTAKE_SUBSYSTEM.runStop());
+
+    PRIMARY_CONTROLLER.rightTrigger().whileTrue(
+      INTAKE_SUBSYSTEM.runOuttake()
+    ).whileFalse(INTAKE_SUBSYSTEM.runStop());
 
     // B button - go to source
     PRIMARY_CONTROLLER.b().whileTrue(DRIVE_SUBSYSTEM.goToPoseCommand(Constants.Field.SOURCE));
