@@ -60,6 +60,14 @@ public final class Constants {
       true 
     );
   }
+  public static enum Mode{
+    REAL,
+    REPLAY,
+    SIM
+
+  }
+
+  public static Mode currentMode = Mode.REAL;
 
   public static class HID {
     public static final int PRIMARY_CONTROLLER_PORT = 0;
