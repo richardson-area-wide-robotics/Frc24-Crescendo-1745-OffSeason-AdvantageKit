@@ -10,7 +10,7 @@ import frc.robot.Constants.IntakeConstants.IntakeState;
 
 public class Intake extends SubsystemBase {
 
-    private final CANSparkMax m_intakeMotor;
+    private final CANSparkMax intakeMotor;
 
     private IntakeState m_intakeState = IntakeState.IDLE;
 
@@ -20,29 +20,24 @@ public class Intake extends SubsystemBase {
     // private GenericEntry m_stateEntry = intakeTab.add("Intake State", m_intakeState).getEntry();
 
     public Intake() {
-    m_intakeMotor = new CANSparkMax(IntakeConstants.kIntakeCANID, CANSparkMax.MotorType.kBrushless);
+    intakeMotor = new CANSparkMax(IntakeConstants.kIntakeCANID, CANSparkMax.MotorType.kBrushless);
 
-    m_intakeMotor.restoreFactoryDefaults();
-    m_intakeMotor.setSmartCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
-    m_intakeMotor.setInverted(IntakeConstants.kIntakeMotorInverted);
-    m_intakeMotor.setIdleMode(IntakeConstants.kIntakeIdleMode);
-    m_intakeMotor.burnFlash();
+    intakeMotor.restoreFactoryDefaults();
+    intakeMotor.setSmartCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
+    intakeMotor.setInverted(IntakeConstants.kIntakeMotorInverted);
+    intakeMotor.setIdleMode(IntakeConstants.kIntakeIdleMode);
+    intakeMotor.burnFlash();
 
 
     this.getDefaultCommand();
     }
 
-    public void SPINTHEFUCKIGINTAKE()
-    {
-        m_intakeMotor.set(IntakeConstants.kIntakeSpeed);
-    }
-
     /**
-     * Commands the nntake to spin in the positive direction - intaking
+     * Commands the intake to spin in the positive direction - inking
      */
     public Command runIntake() {
         m_intakeState = IntakeState.INTAKE;
-        return Commands.run(()-> m_intakeMotor.set(IntakeConstants.kIntakeSpeed), this);
+        return Commands.run(()-> intakeMotor.set(IntakeConstants.kIntakeSpeed), this);
     }
 
     /**
@@ -50,7 +45,7 @@ public class Intake extends SubsystemBase {
      */
     public Command runStop() {
         m_intakeState = IntakeState.OUTTAKE;
-        return Commands.run(()-> m_intakeMotor.set(0), this);
+        return Commands.run(()-> intakeMotor.set(0), this);
     }
 
      /**
@@ -58,16 +53,16 @@ public class Intake extends SubsystemBase {
      */
     public Command runOuttake() {
         m_intakeState = IntakeState.IDLE;
-        return Commands.run(()-> m_intakeMotor.set(IntakeConstants.kOuttakeSpeed), this);
+        return Commands.run(()-> intakeMotor.set(IntakeConstants.kOuttakeSpeed), this);
     }
 
 
-    /**
-     * Set the default Command for the subsystem
-     */
-    public void setDefaultCommand() {
-        m_intakeState = IntakeState.IDLE;
+    public IntakeState getM_intakeState() {
+        return m_intakeState;
     }
-    
-} 
+
+    public void setM_intakeState(IntakeState m_intakeState) {
+        this.m_intakeState = m_intakeState;
+    }
+}
 
