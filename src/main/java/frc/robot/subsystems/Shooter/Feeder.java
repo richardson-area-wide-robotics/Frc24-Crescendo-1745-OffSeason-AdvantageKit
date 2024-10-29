@@ -13,7 +13,7 @@ import frc.robot.Constants.FeederConstants;
 
 public class Feeder extends SubsystemBase {
     private final CANSparkFlex m_feederMotor;
-    private final DigitalInput sensor;
+    private final DigitalInput m_sensor;
     public boolean hasNote;
     // private ShuffleboardTab feederTab = Shuffleboard.getTab("Feeder");
 
@@ -23,7 +23,7 @@ public class Feeder extends SubsystemBase {
 
     public Feeder() {
         m_feederMotor = new CANSparkFlex(FeederConstants.kFeederCANID, CANSparkFlex.MotorType.kBrushless);
-        sensor = new DigitalInput(FeederConstants.kFeederSensorPort);
+        m_sensor = new DigitalInput(FeederConstants.kFeederSensorPort);
 
         m_feederMotor.restoreFactoryDefaults();
         m_feederMotor.setSmartCurrentLimit(FeederConstants.kFeederCurrentLimit);
@@ -50,7 +50,7 @@ public class Feeder extends SubsystemBase {
      * have to invert signal due to the sensor being a break beam sensor
      */
     public boolean hasNote(){
-        return !sensor.get();
+        return !m_sensor.get();
     } 
 
     /**
@@ -71,14 +71,14 @@ public class Feeder extends SubsystemBase {
      * Sets the default command for the feeder
      */
     public void setDefaultCommand(){
-        super.setDefaultCommand(Commands.run(()-> MotorUtils.stopMotor(m_feederMotor), this));
+        super.setDefaultCommand(Commands.run(()-> m_feederMotor.stopMotor(), this));
     }
 
     /**
      * Command that spits the note back towards the intake
      */
     public Command spitNote(){
-        return Commands.run(this::outtake, this);
+        return Commands.run(()-> outtake(), this);
     }
 
     public void setIndicator(boolean note){
@@ -97,13 +97,17 @@ public class Feeder extends SubsystemBase {
             () -> {
                 return;
             },
-                this::intake,
+            () -> {
+                intake();
+            },
             (interrupted) -> {
-                MotorUtils.stopMotor(m_feederMotor);
+                m_feederMotor.stopMotor();
                 setIndicator(true);
 
             },
-                this::hasNote,
+            () -> {
+                return hasNote();
+            },
             this
         );
     }
@@ -116,11 +120,15 @@ public class Feeder extends SubsystemBase {
             () -> {
                 return;
             },
-                this::intake,
-            (interrupted) -> {
-                MotorUtils.stopMotor(m_feederMotor);
+            () -> {
+                intake();
             },
-            () -> false,
+            (interrupted) -> {
+                m_feederMotor.stopMotor();
+            },
+            () -> {
+                return false;
+            },
             this
         );
     }
