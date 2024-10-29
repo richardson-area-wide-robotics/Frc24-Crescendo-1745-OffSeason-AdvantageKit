@@ -158,7 +158,15 @@ public final class Constants {
       }
     }
   
-    
+        /** Feeder Constants */
+        public static final class FeederConstants {
+          public static final int kFeederCANID = 11;
+          public static final int kFeederCurrentLimit = 60;
+          public static final boolean kFeederMotorInverted = true;
+          public static final double kFeederSpeed = 1;
+          public static final int kFeederSensorPort = 0;
+        }
+
     public static final class ShooterConstants {
       public static final int kKickerMotorCANID = 12;
       public static final int kShooterRightCANID = 13;

@@ -169,4 +169,36 @@ public class Shooter extends SubsystemBase {
     public CANSparkFlex getShooterLeftMotor(){
         return shooterLeftMotor;
     }
+
+    public double getLeftTargetSpeed() {
+        return leftTargetSpeed;
+    }
+
+    public void setLeftTargetSpeed(double leftTargetSpeed) {
+        this.leftTargetSpeed = leftTargetSpeed;
+    }
+
+    public double getRightTargetSpeed() {
+        return rightTargetSpeed;
+    }
+
+    public void setRightTargetSpeed(double rightTargetSpeed) {
+        this.rightTargetSpeed = rightTargetSpeed;
+    }
+
+    public boolean isLeftPIDActive() {
+        return leftPIDActive;
+    }
+
+    public void setLeftPIDActive(boolean leftPIDActive) {
+        this.leftPIDActive = leftPIDActive;
+    }
+
+    public boolean isRightPIDActive() {
+        return rightPIDActive;
+    }
+
+    public void setRightPIDActive(boolean rightPIDActive) {
+        this.rightPIDActive = rightPIDActive;
+    }
 }
