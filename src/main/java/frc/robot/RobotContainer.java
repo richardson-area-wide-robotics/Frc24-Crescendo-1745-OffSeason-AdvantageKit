@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.ShooterConstants.ShooterState;
 import frc.robot.subsystems.Intake.Intake;
+import frc.robot.subsystems.Shooter.Pivot;
 import frc.robot.subsystems.Shooter.Shooter;
 import frc.robot.subsystems.drive.AutoTrajectory;
 import frc.robot.subsystems.drive.DriveSubsystem;
@@ -25,6 +26,8 @@ public class RobotContainer {
   private static Intake INTAKE_SUBSYSTEM = new Intake();
 
   private static Shooter SHOOTER_SUBSYSTEM = new Shooter();
+
+  private static Pivot PIVOT_SUBSYSTEM = new Pivot();
 
   private static final DriveSubsystem DRIVE_SUBSYSTEM = new DriveSubsystem(
     DriveSubsystem.initializeHardware(),
@@ -58,6 +61,12 @@ public class RobotContainer {
     SHOOTER_SUBSYSTEM.shooterConfig(new CANSparkFlex(14, MotorType.kBrushless), true);
 
 
+
+    PIVOT_SUBSYSTEM.pivotConfig(new CANSparkFlex(9, MotorType.kBrushless), false);
+    PIVOT_SUBSYSTEM.pivotConfig(new CANSparkFlex(10, MotorType.kBrushless), true);
+
+
+
     // Setup AutoBuilder
     DRIVE_SUBSYSTEM.configureAutoBuilder();
 
@@ -80,6 +89,7 @@ public class RobotContainer {
     );
 
 
+
     //Intake + Outtake
     PRIMARY_CONTROLLER.leftBumper().whileTrue(
       INTAKE_SUBSYSTEM.runIntake()
@@ -89,9 +99,27 @@ public class RobotContainer {
       INTAKE_SUBSYSTEM.runOuttake()
     ).whileFalse(INTAKE_SUBSYSTEM.runStop());
 
-    PRIMARY_CONTROLLER.leftTrigger().onTrue(
+    //pivot up/down
+    PRIMARY_CONTROLLER.leftTrigger().whileTrue(
+      PIVOT_SUBSYSTEM.pivotUp()
+    ).whileFalse(PIVOT_SUBSYSTEM.pivotIdle());
+
+    PRIMARY_CONTROLLER.rightTrigger().whileTrue(
+      PIVOT_SUBSYSTEM.pivotDown()
+    ).whileFalse(PIVOT_SUBSYSTEM.pivotIdle());
+
+
+
+    // shooter speaker
+    PRIMARY_CONTROLLER.y().onTrue(
       Commands.runOnce(() -> {
             SHOOTER_SUBSYSTEM.toggleState(ShooterState.SPEAKER);
+        }, SHOOTER_SUBSYSTEM));
+
+    // shooter amp
+    PRIMARY_CONTROLLER.x().onTrue(
+      Commands.runOnce(() -> {
+            SHOOTER_SUBSYSTEM.toggleState(ShooterState.AMP);
         }, SHOOTER_SUBSYSTEM));
 
     // B button - go to source

@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.IntakeConstants.IntakeState;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.PivotConstants.PivotDirection;
 
@@ -190,6 +191,10 @@ public class Pivot extends SubsystemBase {
     }
 
     public Command pivotDown(){
+        return Commands.run(()-> {manualControl = true; m_PivotRightMotor.set(-PivotConstants.kPivotSpeed);}, this);
+    }
+
+    public Command pivotIdle(){
         return Commands.run(()-> {manualControl = true; m_PivotRightMotor.set(-PivotConstants.kPivotSpeed);}, this);
     }
 }
