@@ -33,7 +33,7 @@ public class Intake extends SubsystemBase {
     }
 
     /**
-     * Commands the intake to spin in the positive direction - inking
+     * Commands the intake to spin in the positive direction - intaking
      */
     public Command runIntake() {
         m_intakeState = IntakeState.INTAKE;
