@@ -62,8 +62,8 @@ public class RobotContainer {
 
 
 
-    PIVOT_SUBSYSTEM.pivotConfig(new CANSparkFlex(9, MotorType.kBrushless), false);
-    PIVOT_SUBSYSTEM.pivotConfig(new CANSparkFlex(10, MotorType.kBrushless), true);
+    PIVOT_SUBSYSTEM.pivotConfig(new CANSparkFlex(9, MotorType.kBrushless));
+    PIVOT_SUBSYSTEM.pivotConfig(new CANSparkFlex(10, MotorType.kBrushless));
 
 
 

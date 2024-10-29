@@ -121,7 +121,8 @@ public final class Constants {
     public static final double kPivotSpeed = 0.2;
     public static final double kPivotUpSpeed = 0.3;
     public static final double kPivotDownSpeed = -0.1;
-
+    public static final double kPivotNoSpeed = 0;
+    
     // Range of values the smart controller will use as a hard stop
     public static final float kPivotForwardSoftLimit = 0.4f;
     public static final float kPivotReverseSoftLimit = 0.0f;
