@@ -52,7 +52,7 @@ public class PurplePathClient {
     else URI = "http://purplebox.local:5000/";
 
     // Initialize connectivity check thread
-        Notifier m_periodicNotifier = new Notifier(this::periodic);
+    Notifier m_periodicNotifier = new Notifier(this::periodic);
 
     // Start connectivity check thread
     m_periodicNotifier.setName(getClass().getSimpleName());

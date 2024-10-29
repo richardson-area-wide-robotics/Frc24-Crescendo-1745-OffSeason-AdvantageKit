@@ -96,6 +96,45 @@ public final class Constants {
     public static final MAXSwerveModule.GearRatio GEAR_RATIO = MAXSwerveModule.GearRatio.L3;
   }
 
+  /** Pivot Constants */
+  public static final class PivotConstants {
+    // Id's for the pivot motors
+    public static final int pivotRightCANID = 9;
+    public static final int pivotLeftCANID = 10;
+
+    // Controller idle mode and current
+    public static final IdleMode pivotIdleMode = IdleMode.kBrake;
+    public static final int pivotCurrentLimit = 40;
+    public static final boolean pivotRightMotorInverted = true;
+
+    // TODO: Tune these values for the pivot please
+    /** The Proportional Gain for the pivot*/
+    public static final double kPivotP = 3.9;
+    /** The Integral Gain for the pivot*/
+    public static final double kPivotI = 0.0001;
+    /** The Derivative Gain for the pivot*/
+    public static final double kPivotD = 0.5;
+    public static final boolean kPivotPositionPIDWrappingEnabled = false;
+    public static final double kPivotMinOutput = -1.0;
+    public static final double kPivotMaxOutput = 1.0;
+
+    public static final double kPivotSpeed = 0.2;
+    public static final double kPivotUpSpeed = 0.3;
+    public static final double kPivotDownSpeed = -0.1;
+
+    // Range of values the smart controller will use as a hard stop
+    public static final float kPivotForwardSoftLimit = 0.4f;
+    public static final float kPivotReverseSoftLimit = 0.0f;
+
+    /** The direction the pivot is currently moving */
+    public enum PivotDirection {
+      UP, 
+      DOWN,
+      STOP
+    }
+
+  }
+
   public static class DriveHardware {
     public static final NavX2.ID NAVX_ID = new NavX2.ID("DriveHardware/NavX2");
     public static final Spark.ID LEFT_FRONT_DRIVE_MOTOR_ID = new Spark.ID("DriveHardware/Swerve/LeftFront/Drive", 7);
