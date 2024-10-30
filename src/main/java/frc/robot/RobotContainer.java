@@ -5,7 +5,6 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkFlex;
-import com.revrobotics.CANSparkMax;
 import com.revrobotics.REVPhysicsSim;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -15,7 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.ShooterConstants.ShooterState;
 import frc.robot.subsystems.Intake.Intake;
 import frc.robot.subsystems.Shooter.Pivot;
@@ -96,6 +94,8 @@ public class RobotContainer {
       INTAKE_SUBSYSTEM.runOuttake()
     ).whileFalse(INTAKE_SUBSYSTEM.runStop());
 
+
+
     //pivot up/down
     PRIMARY_CONTROLLER.leftTrigger().whileTrue(
       PIVOT_SUBSYSTEM.pivotUp()
@@ -113,11 +113,15 @@ public class RobotContainer {
             SHOOTER_SUBSYSTEM.toggleState(ShooterState.SPEAKER);
         }, SHOOTER_SUBSYSTEM));
 
+
+
     // shooter amp
     PRIMARY_CONTROLLER.x().onTrue(
       Commands.runOnce(() -> {
             SHOOTER_SUBSYSTEM.toggleState(ShooterState.AMP);
         }, SHOOTER_SUBSYSTEM));
+
+
 
     // B button - go to source
     PRIMARY_CONTROLLER.b().whileTrue(DRIVE_SUBSYSTEM.goToPoseCommand(Constants.Field.SOURCE));

@@ -15,21 +15,23 @@ public class Intake extends SubsystemBase {
     private IntakeState m_intakeState = IntakeState.IDLE;
 
     // private ShuffleboardTab intakeTab = Shuffleboard.getTab("Intake");
-    // private GenericEntry m_speedEntry = intakeTab.add("Intake Speed", 0).getEntry();
-    // private GenericEntry m_currentEntry = intakeTab.add("Intake Current", 0).getEntry();
-    // private GenericEntry m_stateEntry = intakeTab.add("Intake State", m_intakeState).getEntry();
+    // private GenericEntry m_speedEntry = intakeTab.add("Intake Speed",
+    // 0).getEntry();
+    // private GenericEntry m_currentEntry = intakeTab.add("Intake Current",
+    // 0).getEntry();
+    // private GenericEntry m_stateEntry = intakeTab.add("Intake State",
+    // m_intakeState).getEntry();
 
     public Intake() {
-    intakeMotor = new CANSparkMax(IntakeConstants.kIntakeCANID, CANSparkMax.MotorType.kBrushless);
+        intakeMotor = new CANSparkMax(IntakeConstants.kIntakeCANID, CANSparkMax.MotorType.kBrushless);
 
-    intakeMotor.restoreFactoryDefaults();
-    intakeMotor.setSmartCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
-    intakeMotor.setInverted(IntakeConstants.kIntakeMotorInverted);
-    intakeMotor.setIdleMode(IntakeConstants.kIntakeIdleMode);
-    intakeMotor.burnFlash();
+        intakeMotor.restoreFactoryDefaults();
+        intakeMotor.setSmartCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
+        intakeMotor.setInverted(IntakeConstants.kIntakeMotorInverted);
+        intakeMotor.setIdleMode(IntakeConstants.kIntakeIdleMode);
+        intakeMotor.burnFlash();
 
-
-    this.getDefaultCommand();
+        this.getDefaultCommand();
     }
 
     /**
@@ -37,7 +39,7 @@ public class Intake extends SubsystemBase {
      */
     public Command runIntake() {
         m_intakeState = IntakeState.INTAKE;
-        return Commands.run(()-> intakeMotor.set(IntakeConstants.kIntakeSpeed), this);
+        return Commands.run(() -> intakeMotor.set(IntakeConstants.kIntakeSpeed), this);
     }
 
     /**
@@ -45,17 +47,16 @@ public class Intake extends SubsystemBase {
      */
     public Command runStop() {
         m_intakeState = IntakeState.OUTTAKE;
-        return Commands.run(()-> intakeMotor.set(0), this);
+        return Commands.run(() -> intakeMotor.set(0), this);
     }
 
-     /**
+    /**
      * Commands the intake to spin in the negative direction - outtakeing
      */
     public Command runOuttake() {
         m_intakeState = IntakeState.IDLE;
-        return Commands.run(()-> intakeMotor.set(IntakeConstants.kOuttakeSpeed), this);
+        return Commands.run(() -> intakeMotor.set(IntakeConstants.kOuttakeSpeed), this);
     }
-
 
     public IntakeState getM_intakeState() {
         return m_intakeState;
@@ -65,4 +66,3 @@ public class Intake extends SubsystemBase {
         this.m_intakeState = m_intakeState;
     }
 }
-
