@@ -56,6 +56,7 @@ public class RobotContainer {
     SHOOTER_SUBSYSTEM.shooterConfig(new CANSparkFlex(13, MotorType.kBrushless), false);
     SHOOTER_SUBSYSTEM.shooterConfig(new CANSparkFlex(14, MotorType.kBrushless), true);
 
+   //TODO Config the pivot or it wont work
     //PIVOT_SUBSYSTEM.pivotConfig(new CANSparkFlex(9, MotorType.kBrushless));
     //PIVOT_SUBSYSTEM.pivotConfig(new CANSparkFlex(10, MotorType.kBrushless));
 
