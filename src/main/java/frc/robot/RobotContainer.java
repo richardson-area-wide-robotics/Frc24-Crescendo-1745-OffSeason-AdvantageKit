@@ -30,37 +30,31 @@ public class RobotContainer {
   private static Pivot PIVOT_SUBSYSTEM = new Pivot();
 
   private static final DriveSubsystem DRIVE_SUBSYSTEM = new DriveSubsystem(
-    DriveSubsystem.initializeHardware(),
-    Constants.Drive.DRIVE_ROTATE_PID,
-    Constants.Drive.DRIVE_CONTROL_CENTRICITY,
-    Constants.Drive.DRIVE_THROTTLE_INPUT_CURVE,
-    Constants.Drive.DRIVE_TURN_INPUT_CURVE,
-    Constants.Drive.DRIVE_TURN_SCALAR,
-    Constants.HID.CONTROLLER_DEADBAND,
-    Constants.Drive.DRIVE_LOOKAHEAD
-  );
+      DriveSubsystem.initializeHardware(),
+      Constants.Drive.DRIVE_ROTATE_PID,
+      Constants.Drive.DRIVE_CONTROL_CENTRICITY,
+      Constants.Drive.DRIVE_THROTTLE_INPUT_CURVE,
+      Constants.Drive.DRIVE_TURN_INPUT_CURVE,
+      Constants.Drive.DRIVE_TURN_SCALAR,
+      Constants.HID.CONTROLLER_DEADBAND,
+      Constants.Drive.DRIVE_LOOKAHEAD);
 
- 
-
-  private static final CommandXboxController PRIMARY_CONTROLLER = new CommandXboxController(Constants.HID.PRIMARY_CONTROLLER_PORT);
+  private static final CommandXboxController PRIMARY_CONTROLLER = new CommandXboxController(
+      Constants.HID.PRIMARY_CONTROLLER_PORT);
 
   private static final SendableChooser<Command> automodeChooser = new SendableChooser<>();
 
   public RobotContainer() {
     // Set drive command
     DRIVE_SUBSYSTEM.setDefaultCommand(
-      DRIVE_SUBSYSTEM.driveCommand(
-              PRIMARY_CONTROLLER::getLeftY,
-              PRIMARY_CONTROLLER::getLeftX,
-              PRIMARY_CONTROLLER::getRightX
-      )
-    );
+        DRIVE_SUBSYSTEM.driveCommand(
+            PRIMARY_CONTROLLER::getLeftY,
+            PRIMARY_CONTROLLER::getLeftX,
+            PRIMARY_CONTROLLER::getRightX));
 
     SHOOTER_SUBSYSTEM.kickerConfig(new CANSparkFlex(11, MotorType.kBrushless));
     SHOOTER_SUBSYSTEM.shooterConfig(new CANSparkFlex(13, MotorType.kBrushless), false);
     SHOOTER_SUBSYSTEM.shooterConfig(new CANSparkFlex(14, MotorType.kBrushless), true);
-
-
 
     // Setup AutoBuilder
     DRIVE_SUBSYSTEM.configureAutoBuilder();
@@ -75,60 +69,42 @@ public class RobotContainer {
   private void configureBindings() {
     // Start button - toggle traction control
     PRIMARY_CONTROLLER.start().onTrue(DRIVE_SUBSYSTEM.toggleTractionControlCommand());
-  
+
     // A button - go to amp
     PRIMARY_CONTROLLER.a().whileTrue(
-      DRIVE_SUBSYSTEM.goToPoseCommand(
-        Constants.Field.AMP
-      )
-    );
+        DRIVE_SUBSYSTEM.goToPoseCommand(
+            Constants.Field.AMP));
 
-
-
-    //Intake + Outtake
+    // Intake + Outtake
     PRIMARY_CONTROLLER.leftBumper().whileTrue(
-      INTAKE_SUBSYSTEM.runIntake()
-    ).whileFalse(INTAKE_SUBSYSTEM.runStop());
+        INTAKE_SUBSYSTEM.runIntake()).whileFalse(INTAKE_SUBSYSTEM.runStop());
 
     PRIMARY_CONTROLLER.rightBumper().whileTrue(
-      INTAKE_SUBSYSTEM.runOuttake()
-    ).whileFalse(INTAKE_SUBSYSTEM.runStop());
+        INTAKE_SUBSYSTEM.runOuttake()).whileFalse(INTAKE_SUBSYSTEM.runStop());
 
-
-
-    //pivot up/down
+    // pivot up/down
     PRIMARY_CONTROLLER.leftTrigger().whileTrue(
-      PIVOT_SUBSYSTEM.pivotUp()
-    ).whileFalse(PIVOT_SUBSYSTEM.pivotIdle());
+        PIVOT_SUBSYSTEM.pivotUp()).whileFalse(PIVOT_SUBSYSTEM.pivotIdle());
 
     PRIMARY_CONTROLLER.rightTrigger().whileTrue(
-      PIVOT_SUBSYSTEM.pivotDown()
-    ).whileFalse(PIVOT_SUBSYSTEM.pivotIdle());
-
-
+        PIVOT_SUBSYSTEM.pivotDown()).whileFalse(PIVOT_SUBSYSTEM.pivotIdle());
 
     // shooter speaker
     PRIMARY_CONTROLLER.y().onTrue(
-      Commands.runOnce(() -> {
-            SHOOTER_SUBSYSTEM.toggleState(ShooterState.SPEAKER);
+        Commands.runOnce(() -> {
+          SHOOTER_SUBSYSTEM.toggleState(ShooterState.SPEAKER);
         }, SHOOTER_SUBSYSTEM));
-
-
 
     // shooter amp
     PRIMARY_CONTROLLER.x().onTrue(
-      Commands.runOnce(() -> {
-            SHOOTER_SUBSYSTEM.toggleState(ShooterState.AMP);
+        Commands.runOnce(() -> {
+          SHOOTER_SUBSYSTEM.toggleState(ShooterState.AMP);
         }, SHOOTER_SUBSYSTEM));
-
-
 
     // B button - go to source
     PRIMARY_CONTROLLER.b().whileTrue(DRIVE_SUBSYSTEM.goToPoseCommand(Constants.Field.SOURCE));
 
     PRIMARY_CONTROLLER.povLeft().onTrue(DRIVE_SUBSYSTEM.resetPoseCommand(Pose2d::new));
-
-   
 
   }
 
@@ -139,7 +115,7 @@ public class RobotContainer {
     REVPhysicsSim.getInstance().run();
   }
 
-    /**
+  /**
    * Add auto modes to chooser
    */
   private void autoModeChooser() {
@@ -151,6 +127,7 @@ public class RobotContainer {
 
   /**
    * Get currently selected autonomous command
+   * 
    * @return Autonomous command
    */
   public Command getAutonomousCommand() {
