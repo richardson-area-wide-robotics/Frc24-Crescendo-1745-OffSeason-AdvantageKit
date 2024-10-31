@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.REVPhysicsSim;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -20,6 +21,8 @@ import frc.robot.subsystems.Shooter.Pivot;
 import frc.robot.subsystems.Shooter.Shooter;
 import frc.robot.subsystems.drive.AutoTrajectory;
 import frc.robot.subsystems.drive.DriveSubsystem;
+import frc.robot.Constants.PivotConstants;
+
 
 public class RobotContainer {
 
@@ -56,9 +59,9 @@ public class RobotContainer {
     SHOOTER_SUBSYSTEM.shooterConfig(new CANSparkFlex(13, MotorType.kBrushless), false);
     SHOOTER_SUBSYSTEM.shooterConfig(new CANSparkFlex(14, MotorType.kBrushless), true);
 
-   //TODO Config the pivot or it wont work
-    //PIVOT_SUBSYSTEM.pivotConfig(new CANSparkFlex(9, MotorType.kBrushless));
-    //PIVOT_SUBSYSTEM.pivotConfig(new CANSparkFlex(10, MotorType.kBrushless));
+   //TODO Config the pivot absolute encoder or it wont work
+   // PIVOT_SUBSYSTEM.pivotConfig(new CANSparkFlex(9, MotorType.kBrushless), AbsoluteEncoder.m_PivotEncoder, true);
+   // PIVOT_SUBSYSTEM.pivotConfig(new CANSparkFlex(10, MotorType.kBrushless), AbsoluteEncoder.m_PivotEncoder, false);
 
     // Setup AutoBuilder
     DRIVE_SUBSYSTEM.configureAutoBuilder();
