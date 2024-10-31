@@ -126,7 +126,7 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
   private final AdvancedSwerveKinematics advancedKinematics;
   private final HolonomicPathFollowerConfig pathFollowerConfig;
 
-  private final NavX2 navx;
+  public final NavX2 navx;
   private final MAXSwerveModule lFrontModule;
   private final MAXSwerveModule rFrontModule;
   private final MAXSwerveModule lRearModule;

@@ -18,6 +18,7 @@ import com.pathplanner.lib.pathfinding.Pathfinding;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.drive.DriveSubsystem;
 
 public class Robot extends LoggedRobot {
   private Command autonomousCommand;
@@ -61,7 +62,9 @@ public class Robot extends LoggedRobot {
     }
 
     // Start logging! No more data receivers, replay sources, or metadata values may be added.
-    //Logger.start();
+    if(false){
+      Logger.start();
+    }
 
     robotContainer = new RobotContainer();
   }
@@ -71,14 +74,14 @@ public class Robot extends LoggedRobot {
     PurpleManager.update();
     CommandScheduler.getInstance().run();
   }
-// burrito wuz here
+
   @Override
   public void disabledInit() {}
 
   @Override
   public void disabledPeriodic() {}
 
-    @Override
+  @Override
   public void autonomousInit() {
     autonomousCommand = robotContainer.getAutonomousCommand();
 
@@ -95,6 +98,8 @@ public class Robot extends LoggedRobot {
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }
+    RobotContainer.DRIVE_SUBSYSTEM.navx.reset();
+
   }
 
   @Override

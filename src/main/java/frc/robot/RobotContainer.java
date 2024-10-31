@@ -20,13 +20,13 @@ import frc.robot.subsystems.drive.DriveSubsystem;
 
 public class RobotContainer {
 
-  private static Intake INTAKE_SUBSYSTEM = new Intake();
+  public static Intake INTAKE_SUBSYSTEM = new Intake();
 
-  private static Shooter SHOOTER_SUBSYSTEM = new Shooter();
+  public static Shooter SHOOTER_SUBSYSTEM = new Shooter();
 
-  private static Pivot PIVOT_SUBSYSTEM = new Pivot();
+  public static Pivot PIVOT_SUBSYSTEM = new Pivot();
 
-  private static final DriveSubsystem DRIVE_SUBSYSTEM = new DriveSubsystem(
+  public static final DriveSubsystem DRIVE_SUBSYSTEM = new DriveSubsystem(
       DriveSubsystem.initializeHardware(),
       Constants.Drive.DRIVE_ROTATE_PID,
       Constants.Drive.DRIVE_CONTROL_CENTRICITY,
