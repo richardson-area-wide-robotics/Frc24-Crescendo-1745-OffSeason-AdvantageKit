@@ -103,6 +103,7 @@ public class RobotContainer {
 
     PRIMARY_CONTROLLER.povLeft().onTrue(DRIVE_SUBSYSTEM.resetPoseCommand(Pose2d::new));
 
+    PRIMARY_CONTROLLER.rightStick().onTrue(Commands.runOnce(() -> {DRIVE_SUBSYSTEM.navx.reset();}, DRIVE_SUBSYSTEM));
   }
 
   /**
