@@ -97,7 +97,15 @@ public class RobotContainer {
     PRIMARY_CONTROLLER.y().onTrue(
         Commands.runOnce(() -> {
           SHOOTER_SUBSYSTEM.toggleState(ShooterState.SPEAKER);
-        }, SHOOTER_SUBSYSTEM));
+        }, SHOOTER_SUBSYSTEM));        
+
+    // Pivot Presets?
+
+    PRIMARY_CONTROLLER.b().whileTrue(PIVOT_SUBSYSTEM.pivotToRange()).onTrue(Commands.runOnce(()-> SHOOTER_SUBSYSTEM.setStateSpeaker(ShooterState.SPEAKER)));
+
+    PRIMARY_CONTROLLER.povLeft().whileTrue(PIVOT_SUBSYSTEM.pivotToAMP()).onTrue(Commands.runOnce(()-> SHOOTER_SUBSYSTEM.setStateSpeaker(ShooterState.IDLE)));
+
+    PRIMARY_CONTROLLER.povRight().whileTrue(PIVOT_SUBSYSTEM.pivotToSpeaker()).onTrue(Commands.runOnce(()-> SHOOTER_SUBSYSTEM.setStateSpeaker(ShooterState.SPEAKER)));
 
     // shooter amp
     PRIMARY_CONTROLLER.x().onTrue(
@@ -105,9 +113,9 @@ public class RobotContainer {
           SHOOTER_SUBSYSTEM.toggleState(ShooterState.AMP);
         }, SHOOTER_SUBSYSTEM));
 
-      PRIMARY_CONTROLLER.a().whileTrue(FEEDER_SUBSYSTEM.shootNote());
+    PRIMARY_CONTROLLER.a().whileTrue(FEEDER_SUBSYSTEM.shootNote());
     // B button - go to source
-    PRIMARY_CONTROLLER.b().whileTrue(DRIVE_SUBSYSTEM.goToPoseCommand(Constants.Field.SOURCE));
+    //PRIMARY_CONTROLLER.b().whileTrue(DRIVE_SUBSYSTEM.goToPoseCommand(Constants.Field.SOURCE));
 
     PRIMARY_CONTROLLER.povLeft().onTrue(DRIVE_SUBSYSTEM.resetPoseCommand(Pose2d::new));
 

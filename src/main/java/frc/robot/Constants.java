@@ -141,10 +141,17 @@ public final class Constants {
     public static final float kPivotForwardSoftLimit = 0.4f;
     public static final float kPivotReverseSoftLimit = 0.0f;
 
-      
-    //public static final Measure<Angle> kPivotPresetRangev2 = Radians.of(0.095);//0.0885 works for second 8 - front
-    //public static final Measure<Angle> kPivotPresetAmpv2 = Radians.of(kPivotPresetAmp);
-    //public static final Measure<Angle> kPivotPresetRest = Radians.of(0.015);
+    // This is pivot presets?
+    public static final double kPivotMaxAngle = 0.3;
+    public static final double kPivotMinAngle = 0.01;
+
+    public static final double kPivotPresetSubwoofer = 0.135;
+    public static final double kPivotPresetAmp = 0.31;
+
+    public static final Measure<Angle> kPivotPresetSubwooferv2 = Radians.of(0.135);
+    public static final Measure<Angle> kPivotPresetRangev2 = Radians.of(0.095);//0.0885 works for second 8 - front
+    public static final Measure<Angle> kPivotPresetAmpv2 = Radians.of(0.31);
+    public static final Measure<Angle> kPivotPresetRest = Radians.of(0.015);
 
     /** The direction the pivot is currently moving */
     public enum PivotDirection {
@@ -152,6 +159,8 @@ public final class Constants {
       DOWN,
       STOP
     }
+
+
 
   }
 

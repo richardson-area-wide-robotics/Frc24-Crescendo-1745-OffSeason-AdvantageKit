@@ -197,6 +197,22 @@ public class Pivot extends SubsystemBase {
         return Commands.run(()-> {manualControl = true; m_PivotRightMotor.set(PivotConstants.kPivotNoSpeed);}, this);
     }
 
+    public Command pivotToAMP(){
+        return Commands.run(()-> pivotTo(PivotConstants.kPivotPresetAmpv2), this);
+    }
+
+    public Command pivotToSpeaker(){
+        return Commands.run(()-> pivotTo(PivotConstants.kPivotPresetSubwooferv2), this);
+    }
+
+    public Command pivotToRange(){
+        return Commands.run(()-> pivotTo(PivotConstants.kPivotPresetRangev2), this);
+    }
+
+    public Command pivotToRest(){
+        return Commands.run(()-> pivotTo(PivotConstants.kPivotPresetRest), this);
+    }
+
 
 }
 
