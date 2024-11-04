@@ -17,6 +17,7 @@ import frc.robot.subsystems.Shooter.Pivot;
 import frc.robot.subsystems.Shooter.Shooter;
 import frc.robot.subsystems.drive.AutoTrajectory;
 import frc.robot.subsystems.drive.DriveSubsystem;
+import frc.robot.subsystems.Shooter.Feeder;
 
 public class RobotContainer {
 
@@ -25,6 +26,8 @@ public class RobotContainer {
   public static Shooter SHOOTER_SUBSYSTEM = new Shooter();
 
   public static Pivot PIVOT_SUBSYSTEM = new Pivot();
+
+  public static Feeder FEEDER_SUBSYSTEM = new Feeder();
 
   public static final DriveSubsystem DRIVE_SUBSYSTEM = new DriveSubsystem(
       DriveSubsystem.initializeHardware(),
@@ -67,17 +70,21 @@ public class RobotContainer {
     // Start button - toggle traction control
     PRIMARY_CONTROLLER.start().onTrue(DRIVE_SUBSYSTEM.toggleTractionControlCommand());
 
-    // A button - go to amp
-    PRIMARY_CONTROLLER.a().whileTrue(
+    // X button - go to amp
+    PRIMARY_CONTROLLER.x().whileTrue(
         DRIVE_SUBSYSTEM.goToPoseCommand(
             Constants.Field.AMP));
 
     // Intake + Outtake
     PRIMARY_CONTROLLER.leftBumper().whileTrue(
-        INTAKE_SUBSYSTEM.runIntake()).whileFalse(INTAKE_SUBSYSTEM.runStop());
+      FEEDER_SUBSYSTEM.feedNote()
+      .alongWith(INTAKE_SUBSYSTEM.runIntake()))
+      .whileFalse(INTAKE_SUBSYSTEM.runStop());
 
     PRIMARY_CONTROLLER.rightBumper().whileTrue(
-        INTAKE_SUBSYSTEM.runOuttake()).whileFalse(INTAKE_SUBSYSTEM.runStop());
+      FEEDER_SUBSYSTEM.spitNote()
+      .alongWith(INTAKE_SUBSYSTEM.runOuttake()))
+      .whileFalse(INTAKE_SUBSYSTEM.runStop());
 
     // pivot up/down
     PRIMARY_CONTROLLER.leftTrigger().whileTrue(
@@ -98,6 +105,7 @@ public class RobotContainer {
           SHOOTER_SUBSYSTEM.toggleState(ShooterState.AMP);
         }, SHOOTER_SUBSYSTEM));
 
+      PRIMARY_CONTROLLER.a().whileTrue(FEEDER_SUBSYSTEM.shootNote());
     // B button - go to source
     PRIMARY_CONTROLLER.b().whileTrue(DRIVE_SUBSYSTEM.goToPoseCommand(Constants.Field.SOURCE));
 

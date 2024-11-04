@@ -36,17 +36,14 @@ public class Pivot extends SubsystemBase {
     private double angle_1 = 0;
     private double angle_2 = 0;
 
+
     // private ShuffleboardTab pivotTab = Shuffleboard.getTab("Pivot");
-    // private GenericEntry m_setPointEntry = pivotTab.add("Set Point",
-    // 0).getEntry();
-    // private GenericEntry m_encoderPositionEntry = pivotTab.add("Encoder
-    // Position", 0).getEntry();
-    // private GenericEntry m_encoderPositionDegreesEntry = pivotTab.add("Encoder
-    // Position Degrees", 0).getEntry();
-    // private GenericEntry m_atTopLimitEntry = pivotTab.add("At Top Limit",
-    // false).getEntry();
-    // private GenericEntry m_atBottomLimitEntry = pivotTab.add("At Bottom Limit",
-    // false).getEntry();
+    // private GenericEntry m_setPointEntry = pivotTab.add("Set Point", 0).getEntry();
+    // private GenericEntry m_encoderPositionEntry = pivotTab.add("Encoder Position", 0).getEntry();
+    // private GenericEntry m_encoderPositionDegreesEntry = pivotTab.add("Encoder Position Degrees", 0).getEntry();
+    // private GenericEntry m_atTopLimitEntry = pivotTab.add("At Top Limit", false).getEntry();
+    // private GenericEntry m_atBottomLimitEntry = pivotTab.add("At Bottom Limit", false).getEntry();
+
 
     /**
      * Config to set basic motor settings to avoid redundancy
@@ -107,7 +104,7 @@ public class Pivot extends SubsystemBase {
         SmartDashboard.putNumber("P.O.Pt 1", 0);
         SmartDashboard.putNumber("P.O.Pt 2", 0);
         SmartDashboard.putNumber("k", 0);
-        // SmartDashboard.putNumber("Pivot Offset (Degrees)", 0);
+     //   SmartDashboard.putNumber("Pivot Offset (Degrees)", 0);
 
     }
 
@@ -124,7 +121,7 @@ public class Pivot extends SubsystemBase {
     }
 
     public double getEncoderPosition() {
-        return m_PivotEncoder.getPosition();
+        return m_PivotEncoder.getPosition() ;
     }
 
     public void pivot(PivotDirection direction) {
@@ -146,29 +143,29 @@ public class Pivot extends SubsystemBase {
     }
 
     // angle is in radians
-    public void pivotFromCamera(Measure<Angle> angle) {
+    public void pivotFromCamera(Measure<Angle> angle){
         m_setPoint = angle;
-        // Pivot Offset Points
+        //Pivot Offset Points
         double tempC_1 = SmartDashboard.getNumber("P.O.Pt 1", 0);
-        if (correction_1 != tempC_1) {
-            angle_1 = angle.in(Degrees);
-            correction_1 = tempC_1;
+        if(correction_1 != tempC_1){
+           angle_1 = angle.in(Degrees);
+           correction_1 = tempC_1;
         }
         double tempC_2 = SmartDashboard.getNumber("P.O.Pt 2", 0);
-        if (correction_2 != tempC_2) {
-            angle_2 = angle.in(Degrees);
-            correction_2 = tempC_2;
+        if(correction_2 != tempC_2){
+           angle_2 = angle.in(Degrees);
+           correction_2 = tempC_2;
         }
-        double k = SmartDashboard.getNumber("k", 0);
-        double offset_angle = angle.in(Degrees) * Math.abs((correction_2 - correction_1) / (angle_2 - angle_1)) + k;
-        if (offset_angle == 0) {
+        double k = SmartDashboard.getNumber("k",0);
+        double offset_angle = angle.in(Degrees)*Math.abs((correction_2-correction_1)/(angle_2-angle_1))+k;
+        if(offset_angle == 0){
             offset_angle = angle.in(Degrees);
         }
         SmartDashboard.putNumber("Test Angle Offset", offset_angle);
         SmartDashboard.putNumber("a_1", angle_1);
         SmartDashboard.putNumber("a_2", angle_2);
-
-        m_PivotPIDController.setReference(((angle.in(Degrees)) / 360), ControlType.kPosition);
+         
+        m_PivotPIDController.setReference(((angle.in(Degrees))/360), ControlType.kPosition);
     }
 
     @Override
@@ -180,32 +177,26 @@ public class Pivot extends SubsystemBase {
         builder.addDoubleProperty("encoderPosition", this::getEncoderPosition, null);
     }
 
-    /**
-     * Pivots the shooter to a given angle about the axis of the absolute encoder.
+     /** 
+     * Pivots the shooter to a given angle about the axis of the absolute encoder. 
      */
     public void pivotTo(Measure<Angle> angle) {
         m_setPoint = angle;
         m_PivotPIDController.setReference(angle.in(Radians), ControlType.kPosition);
     }
 
-    public Command pivotUp() {
-        return Commands.run(() -> {
-            manualControl = true;
-            m_PivotRightMotor.set(PivotConstants.kPivotSpeed);
-        }, this);
+    public Command pivotUp(){
+        return Commands.run(()-> {manualControl = true; m_PivotRightMotor.set (PivotConstants.kPivotSpeed);}, this);
     }
 
-    public Command pivotDown() {
-        return Commands.run(() -> {
-            manualControl = true;
-            m_PivotRightMotor.set(-PivotConstants.kPivotSpeed);
-        }, this);
+    public Command pivotDown(){
+        return Commands.run(()-> {manualControl = true; m_PivotRightMotor.set(-PivotConstants.kPivotSpeed);}, this);
     }
 
-    public Command pivotIdle() {
-        return Commands.run(() -> {
-            manualControl = true;
-            m_PivotRightMotor.set(PivotConstants.kPivotNoSpeed);
-        }, this);
+    public Command pivotIdle(){
+        return Commands.run(()-> {manualControl = true; m_PivotRightMotor.set(PivotConstants.kPivotNoSpeed);}, this);
     }
+
+
 }
+

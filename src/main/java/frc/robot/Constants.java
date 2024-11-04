@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import static edu.wpi.first.units.Units.Radians;
+
 import org.apache.commons.math3.analysis.interpolation.SplineInterpolator;
 import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
 import org.lasarobotics.drive.AdvancedSwerveKinematics.ControlCentricity;
@@ -23,9 +25,12 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.units.Angle;
+import edu.wpi.first.units.Measure;
 import edu.wpi.first.units.Units;
 import frc.robot.subsystems.drive.PurplePathPose;
 import frc.robot.subsystems.vision.AprilTagCamera.Resolution;
+
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -128,13 +133,18 @@ public final class Constants {
     public static final double kPivotMaxOutput = 1.0;
 
     public static final double kPivotSpeed = 0.2;
-    public static final double kPivotUpSpeed = 0.3;
+    public static final double kPivotUpSpeed = 0.6;
     public static final double kPivotDownSpeed = -0.1;
     public static final double kPivotNoSpeed = 0;
 
     // Range of values the smart controller will use as a hard stop
     public static final float kPivotForwardSoftLimit = 0.4f;
     public static final float kPivotReverseSoftLimit = 0.0f;
+
+      
+    //public static final Measure<Angle> kPivotPresetRangev2 = Radians.of(0.095);//0.0885 works for second 8 - front
+    //public static final Measure<Angle> kPivotPresetAmpv2 = Radians.of(kPivotPresetAmp);
+    //public static final Measure<Angle> kPivotPresetRest = Radians.of(0.015);
 
     /** The direction the pivot is currently moving */
     public enum PivotDirection {
