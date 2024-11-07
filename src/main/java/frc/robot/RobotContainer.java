@@ -52,7 +52,7 @@ public class RobotContainer {
             PRIMARY_CONTROLLER::getLeftX,
             PRIMARY_CONTROLLER::getRightX));
 
-   //TODO Config the pivot absolute encoder or it wont work
+   //TODO Config the pivot absolute encoder or it wont work maybe
    //PIVOT_SUBSYSTEM.pivotConfig(new CANSparkFlex(9, MotorType.kBrushless), AbsoluteEncoder enc, true);
    //PIVOT_SUBSYSTEM.pivotConfig(new CANSparkFlex(10, MotorType.kBrushless),e , false);
 
@@ -99,7 +99,7 @@ public class RobotContainer {
           SHOOTER_SUBSYSTEM.toggleState(ShooterState.SPEAKER);
         }, SHOOTER_SUBSYSTEM));        
 
-    // Pivot Presets?
+    // Pivot Presets
 
     PRIMARY_CONTROLLER.b().whileTrue(PIVOT_SUBSYSTEM.pivotToRange()).onTrue(Commands.runOnce(()-> SHOOTER_SUBSYSTEM.setStateSpeaker(ShooterState.SPEAKER)));
 
