@@ -1,4 +1,3 @@
-/**
 
 package frc.robot.subsystems.Shooter;
 
@@ -26,18 +25,17 @@ import frc.robot.Constants.PivotConstants.PivotDirection;
 
 public class Positions extends SubsystemBase {
 
-
     public Positions() {
 
-        m_PivotEncoder = m_PivotRightMotor.getAbsoluteEncoder();
-        m_setPoint = Radians.of(getEncoderPosition());
+        //m_PivotEncoder = Pivot.
+        //m_setPoint = Radians.of(getEncoderPosition());
     }
-    public void pivotFromCamera(Measure<Angle> angle){m_setPoint = angle;
-    
+    public void pivotFromCamera(Measure<Angle> angle){
+        //m_setPoint = angle;
     }
     public void pivotTo(Measure<Angle> angle) {
-        m_setPoint = angle;
-        m_PivotPIDController.setReference(angle.in(Radians), ControlType.kPosition);
+        //m_setPoint = angle;
+        //m_PivotPIDController.setReference(angle.in(Radians), ControlType.kPosition);
     }
 
     public Command pivotToAMP(){
@@ -56,4 +54,3 @@ public class Positions extends SubsystemBase {
         return Commands.run(()-> pivotTo(PivotConstants.kPivotPresetRest), this);
     }
 }
- */

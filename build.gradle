@@ -108,6 +108,10 @@ dependencies {
 
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.+'
 
+  // Add Lombok dependency
+  compileOnly 'org.projectlombok:lombok:1.18.28'
+  annotationProcessor 'org.projectlombok:lombok:1.18.28'
+
   annotationProcessor "org.littletonrobotics.akit.junction:junction-autolog:$AdvantageKitJSON.version"
 }
 

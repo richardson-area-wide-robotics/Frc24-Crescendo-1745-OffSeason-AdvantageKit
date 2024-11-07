@@ -19,12 +19,13 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.PivotConstants.PivotDirection;
+import lombok.Getter;
 
 public class Pivot extends SubsystemBase {
 
-    private final CANSparkMax m_PivotLeftMotor;
-    private final CANSparkMax m_PivotRightMotor;
-    private final AbsoluteEncoder m_PivotEncoder;
+    @Getter private final CANSparkMax m_PivotLeftMotor;
+    @Getter private final CANSparkMax m_PivotRightMotor;
+    @Getter private final AbsoluteEncoder m_PivotEncoder;
 
     private Measure<Angle> m_setPoint;
     private SparkPIDController m_PivotPIDController;
