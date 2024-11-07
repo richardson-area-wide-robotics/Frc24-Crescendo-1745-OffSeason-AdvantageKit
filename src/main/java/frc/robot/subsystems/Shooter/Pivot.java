@@ -43,7 +43,7 @@ public class Pivot extends SubsystemBase {
     // private GenericEntry m_encoderPositionDegreesEntry = pivotTab.add("Encoder Position Degrees", 0).getEntry();
     // private GenericEntry m_atTopLimitEntry = pivotTab.add("At Top Limit", false).getEntry();
     // private GenericEntry m_atBottomLimitEntry = pivotTab.add("At Bottom Limit", false).getEntry();
-
+    //do we need this?
 
     /**
      * Config to set basic motor settings to avoid redundancy
