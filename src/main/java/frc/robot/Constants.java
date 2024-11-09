@@ -248,7 +248,8 @@ public final class Constants {
       IDLE,
       INTAKE,
       OUTTAKE,
-      REVERSE
+      REVERSE,
+      SPEAKER
     }
   }
 }

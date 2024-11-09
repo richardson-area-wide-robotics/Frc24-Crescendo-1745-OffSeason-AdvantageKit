@@ -94,9 +94,9 @@ public class Shooter extends SubsystemBase {
             case OUTTAKE:
                 outtake();
                 break;
-            //case SPEAKER:
-               // speakerMode();
-                //break;
+            case SPEAKER:
+                speakerMode();
+                break;
             //case AMP:
                 //ampSpeed();
                 //break;
@@ -152,7 +152,7 @@ public class Shooter extends SubsystemBase {
         //shooterLeftMotor.set(0.1);
         //shooterRightMotor.set(0.1);
         //kickerMotor.set(0.1);
-    }
+    //}
 
     /**
      * While called, angles the pivot of the shooter and sets the shooter to the
@@ -160,7 +160,7 @@ public class Shooter extends SubsystemBase {
      * to score from the bot's distance from the shooter. However, does not shoot
      * the note.
      */
-    /**private void speakerMode() {
+    private void speakerMode() {
         shooterLeftMotor.set(0.6);
         shooterRightMotor.set(0.4);
         kickerMotor.set(0.75); // TODO: change to constant
@@ -202,4 +202,3 @@ public class Shooter extends SubsystemBase {
         this.rightPIDActive = rightPIDActive;
     }
 }
-*/

@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Constants.ShooterConstants.ShooterState;
 import frc.robot.subsystems.Intake.Intake;
 import frc.robot.subsystems.Shooter.Pivot;
 import frc.robot.subsystems.Shooter.Shooter;
@@ -85,6 +86,10 @@ public class RobotContainer {
     PRIMARY_CONTROLLER.rightTrigger().whileTrue(
         PIVOT_SUBSYSTEM.pivotDown()).whileFalse(PIVOT_SUBSYSTEM.pivotIdle());
 
+    PRIMARY_CONTROLLER.y().onTrue(
+        Commands.runOnce(() -> {
+          SHOOTER_SUBSYSTEM.toggleState(ShooterState.SPEAKER);
+        }, SHOOTER_SUBSYSTEM));   
 
     PRIMARY_CONTROLLER.a().whileTrue(FEEDER_SUBSYSTEM.shootNote());
     // B button - go to source
