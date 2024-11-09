@@ -128,9 +128,9 @@ public class Shooter extends SubsystemBase {
 
     public void idle() {
         shooterState = ShooterState.IDLE;
-        shooterLeftMotor.set(0.1);
-        shooterRightMotor.set(0.1);
-        kickerMotor.set(0.1);
+        shooterLeftMotor.set(ShooterConstants.kShooterIdleSpeed);
+        shooterRightMotor.set(ShooterConstants.kShooterIdleSpeed);
+        kickerMotor.set(ShooterConstants.kShooterIdleSpeed);
     }
 
     public void stopAll() {

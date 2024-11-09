@@ -237,6 +237,8 @@ public final class Constants {
     public static final double FEED_FORWARDKA = 0.064897 / 60.0;
 
     public static final double kShooterReverseSpeed = -0.1;
+    public static final double kShooterIdleSpeed = 0.1;
+
 
     public static final double PVal = 0.001;
 
