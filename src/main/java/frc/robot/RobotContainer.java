@@ -52,9 +52,6 @@ public class RobotContainer {
             PRIMARY_CONTROLLER::getLeftX,
             PRIMARY_CONTROLLER::getRightX));
 
-   //TODO Config the pivot absolute encoder or it wont work maybe
-   //PIVOT_SUBSYSTEM.pivotConfig(new CANSparkFlex(9, MotorType.kBrushless), AbsoluteEncoder enc, true);
-   //PIVOT_SUBSYSTEM.pivotConfig(new CANSparkFlex(10, MotorType.kBrushless),e , false);
 
     // Setup AutoBuilder
     DRIVE_SUBSYSTEM.configureAutoBuilder();
@@ -70,10 +67,6 @@ public class RobotContainer {
     // Start button - toggle traction control
     PRIMARY_CONTROLLER.start().onTrue(DRIVE_SUBSYSTEM.toggleTractionControlCommand());
 
-    // X button - go to amp
-    PRIMARY_CONTROLLER.x().whileTrue(
-        DRIVE_SUBSYSTEM.goToPoseCommand(
-            Constants.Field.AMP));
 
     // Intake + Outtake
     PRIMARY_CONTROLLER.leftBumper().whileTrue(
@@ -93,25 +86,6 @@ public class RobotContainer {
     PRIMARY_CONTROLLER.rightTrigger().whileTrue(
         PIVOT_SUBSYSTEM.pivotDown()).whileFalse(PIVOT_SUBSYSTEM.pivotIdle());
 
-    // shooter speaker
-    PRIMARY_CONTROLLER.y().onTrue(
-        Commands.runOnce(() -> {
-          SHOOTER_SUBSYSTEM.toggleState(ShooterState.SPEAKER);
-        }, SHOOTER_SUBSYSTEM));        
-
-    // Pivot Presets
-
-    PRIMARY_CONTROLLER.b().whileTrue(PIVOT_SUBSYSTEM.pivotToRange()).onTrue(Commands.runOnce(()-> SHOOTER_SUBSYSTEM.setStateSpeaker(ShooterState.SPEAKER)));
-
-    PRIMARY_CONTROLLER.povLeft().whileTrue(PIVOT_SUBSYSTEM.pivotToAMP()).onTrue(Commands.runOnce(()-> SHOOTER_SUBSYSTEM.setStateSpeaker(ShooterState.IDLE)));
-
-    PRIMARY_CONTROLLER.povRight().whileTrue(PIVOT_SUBSYSTEM.pivotToSpeaker()).onTrue(Commands.runOnce(()-> SHOOTER_SUBSYSTEM.setStateSpeaker(ShooterState.SPEAKER)));
-
-    // shooter amp
-    PRIMARY_CONTROLLER.x().onTrue(
-        Commands.runOnce(() -> {
-          SHOOTER_SUBSYSTEM.toggleState(ShooterState.AMP);
-        }, SHOOTER_SUBSYSTEM));
 
     PRIMARY_CONTROLLER.a().whileTrue(FEEDER_SUBSYSTEM.shootNote());
     // B button - go to source

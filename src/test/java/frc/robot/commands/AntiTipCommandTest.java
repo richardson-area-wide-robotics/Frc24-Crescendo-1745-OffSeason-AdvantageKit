@@ -37,6 +37,7 @@ import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.simulation.DriverStationSim;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.drive.DriveSubsystem;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -149,16 +150,7 @@ public class AntiTipCommandTest {
     );
 
     // Create DriveSubsystem object
-    m_driveSubsystem = new DriveSubsystem(
-      m_drivetrainHardware,
-      Constants.Drive.DRIVE_ROTATE_PID,
-      Constants.Drive.DRIVE_CONTROL_CENTRICITY,
-      Constants.Drive.DRIVE_THROTTLE_INPUT_CURVE,
-      Constants.Drive.DRIVE_TURN_INPUT_CURVE,
-      Constants.Drive.DRIVE_TURN_SCALAR,
-      Constants.HID.CONTROLLER_DEADBAND,
-      Constants.Drive.DRIVE_LOOKAHEAD
-    );
+    m_driveSubsystem = RobotContainer.DRIVE_SUBSYSTEM;
 
     // Create AntiTipCommand object
     m_antiTipCommand = m_driveSubsystem.ANTI_TIP_COMMAND;

@@ -85,6 +85,8 @@ public class Pivot extends SubsystemBase {
         motor.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 20);
         motor.setPeriodicFramePeriod(PeriodicFrame.kStatus3, 200);
         motor.setPeriodicFramePeriod(PeriodicFrame.kStatus4, 200);
+
+        motor.burnFlash();
     }
 
     public Pivot() {
@@ -97,14 +99,14 @@ public class Pivot extends SubsystemBase {
 
         m_PivotLeftMotor.follow(m_PivotRightMotor, true);
 
-        m_PivotLeftMotor.burnFlash();
-        m_PivotRightMotor.burnFlash();
-
         m_setPoint = Radians.of(getEncoderPosition());
 
         SmartDashboard.putNumber("P.O.Pt 1", 0);
         SmartDashboard.putNumber("P.O.Pt 2", 0);
         SmartDashboard.putNumber("k", 0);
+
+        SmartDashboard.putNumber("PIVOT ANGLE", 0);
+
      //   SmartDashboard.putNumber("Pivot Offset (Degrees)", 0);
 
     }
@@ -140,6 +142,7 @@ public class Pivot extends SubsystemBase {
                 manualControl = false;
                 m_PivotRightMotor.set(0);
         }
+        SmartDashboard.putNumber("PIVOT ANGLE", m_PivotRightMotor.getAbsoluteEncoder().getPosition());
 
     }
 
@@ -187,32 +190,17 @@ public class Pivot extends SubsystemBase {
     }
 
     public Command pivotUp(){
-        return Commands.run(()-> {manualControl = true; m_PivotRightMotor.set (PivotConstants.kPivotSpeed);}, this);
+        return Commands.run(()-> {manualControl = true; pivot(PivotDirection.UP);}, this);
     }
 
     public Command pivotDown(){
-        return Commands.run(()-> {manualControl = true; m_PivotRightMotor.set(-PivotConstants.kPivotSpeed);}, this);
+        return Commands.run(()-> {manualControl = true; pivot(PivotDirection.DOWN);}, this);
     }
 
     public Command pivotIdle(){
         return Commands.run(()-> {manualControl = true; m_PivotRightMotor.set(PivotConstants.kPivotNoSpeed);}, this);
     }
 
-    public Command pivotToAMP(){
-        return Commands.run(()-> pivotTo(PivotConstants.kPivotPresetAmpv2), this);
-    }
-
-    public Command pivotToSpeaker(){
-        return Commands.run(()-> pivotTo(PivotConstants.kPivotPresetSubwooferv2), this);
-    }
-
-    public Command pivotToRange(){
-        return Commands.run(()-> pivotTo(PivotConstants.kPivotPresetRangev2), this);
-    }
-
-    public Command pivotToRest(){
-        return Commands.run(()-> pivotTo(PivotConstants.kPivotPresetRest), this);
-    }
 
 
 }

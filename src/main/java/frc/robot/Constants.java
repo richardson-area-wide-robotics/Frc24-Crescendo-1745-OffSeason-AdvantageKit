@@ -118,7 +118,7 @@ public final class Constants {
 
     // Controller idle mode and current
     public static final IdleMode pivotIdleMode = IdleMode.kBrake;
-    public static final int pivotCurrentLimit = 40;
+    public static final int pivotCurrentLimit = 60;
     public static final boolean pivotRightMotorInverted = true;
 
     // TODO: Tune these values for the pivot please
@@ -133,25 +133,13 @@ public final class Constants {
     public static final double kPivotMaxOutput = 1.0;
 
     public static final double kPivotSpeed = 0.2;
-    public static final double kPivotUpSpeed = 0.6;
-    public static final double kPivotDownSpeed = -0.1;
+    public static final double kPivotUpSpeed = 2.6;
+    public static final double kPivotDownSpeed = -1.1;
     public static final double kPivotNoSpeed = 0;
 
     // Range of values the smart controller will use as a hard stop
-    public static final float kPivotForwardSoftLimit = 0.4f;
+    public static final float kPivotForwardSoftLimit = 0.31f;
     public static final float kPivotReverseSoftLimit = 0.0f;
-
-    // This is pivot presets?
-    public static final double kPivotMaxAngle = 0.3;
-    public static final double kPivotMinAngle = 0.01;
-
-    public static final double kPivotPresetSubwoofer = 0.135;
-    public static final double kPivotPresetAmp = 0.31;
-
-    public static final Measure<Angle> kPivotPresetSubwooferv2 = Radians.of(0.135);
-    public static final Measure<Angle> kPivotPresetRangev2 = Radians.of(0.095);//0.0885 works for second 8 - front
-    public static final Measure<Angle> kPivotPresetAmpv2 = Radians.of(0.31);
-    public static final Measure<Angle> kPivotPresetRest = Radians.of(0.015);
 
     /** The direction the pivot is currently moving */
     public enum PivotDirection {
@@ -159,9 +147,6 @@ public final class Constants {
       DOWN,
       STOP
     }
-
-
-
   }
 
   public static class DriveHardware {
@@ -261,8 +246,6 @@ public final class Constants {
       IDLE,
       INTAKE,
       OUTTAKE,
-      SPEAKER,
-      AMP,
       REVERSE
     }
   }
