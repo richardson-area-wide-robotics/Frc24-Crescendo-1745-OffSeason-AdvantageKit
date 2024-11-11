@@ -22,7 +22,7 @@ public class Shooter extends SubsystemBase {
     private boolean leftPIDActive = false;
     private boolean rightPIDActive = false;
 
-    public void kickerConfig(CANSparkFlex motor){
+    public void kickerConfig(CANSparkFlex motor) {
         motor.restoreFactoryDefaults();
 
         motor.setSmartCurrentLimit(ShooterConstants.kKickerMotorCurrentLimit);
@@ -36,17 +36,17 @@ public class Shooter extends SubsystemBase {
         RelativeEncoder kickerEncoder = motor.getEncoder();
 
         shooterState = ShooterState.IDLE;
-        
+
     }
 
-    public void shooterConfig(CANSparkFlex motor, boolean shooterLeftSide){
+    public void shooterConfig(CANSparkFlex motor, boolean shooterLeftSide) {
         motor.restoreFactoryDefaults();
 
         motor.setSmartCurrentLimit(ShooterConstants.kShooterMotorCurrentLimit);
 
         motor.setIdleMode(ShooterConstants.kShooterMotorIdleMode);
 
-        if(shooterLeftSide) {
+        if (shooterLeftSide) {
             motor.setInverted(ShooterConstants.kShooterLeftMotorInverted);
             SparkPIDController shooterLeftPIDController = motor.getPIDController();
             RelativeEncoder shooterLeftEncoder = motor.getEncoder();
@@ -77,8 +77,7 @@ public class Shooter extends SubsystemBase {
         SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(
                 ShooterConstants.FEED_FORWARDKS,
                 ShooterConstants.FEED_FORWARDKV,
-                ShooterConstants.FEED_FORWARDKA
-        );
+                ShooterConstants.FEED_FORWARDKA);
 
         kickerMotor.burnFlash();
         shooterLeftMotor.burnFlash();
@@ -98,9 +97,9 @@ public class Shooter extends SubsystemBase {
             case SPEAKER:
                 speakerMode();
                 break;
-            case AMP:
-                ampSpeed();
-                break;
+            //case AMP:
+                //ampSpeed();
+                //break;
             case REVERSE:
                 reverse();
             case IDLE:
@@ -108,7 +107,6 @@ public class Shooter extends SubsystemBase {
                 break;
         }
     }
-
 
     public void reverse() {
         shooterState = ShooterState.REVERSE;
@@ -124,15 +122,15 @@ public class Shooter extends SubsystemBase {
         }
     }
 
-    public void setStateSpeaker(ShooterState state){
-        shooterState = state;
-    }
+    //public void setStateSpeaker(ShooterState state) {
+        //shooterState = state;
+    //}
 
     public void idle() {
         shooterState = ShooterState.IDLE;
-        shooterLeftMotor.set(0.1);
-        shooterRightMotor.set(0.1);
-        kickerMotor.set(0.1);
+        shooterLeftMotor.set(ShooterConstants.kShooterIdleSpeed);
+        shooterRightMotor.set(ShooterConstants.kShooterIdleSpeed);
+        kickerMotor.set(ShooterConstants.kShooterIdleSpeed);
     }
 
     public void stopAll() {
@@ -150,15 +148,17 @@ public class Shooter extends SubsystemBase {
         shooterState = ShooterState.OUTTAKE;
     }
 
-    private void ampSpeed() {
-        shooterLeftMotor.set(0.1);
-        shooterRightMotor.set(0.1);
-        kickerMotor.set(0.1);
-    }
+    //private void ampSpeed() {
+        //shooterLeftMotor.set(0.1);
+        //shooterRightMotor.set(0.1);
+        //kickerMotor.set(0.1);
+    //}
 
-     /**
-     * While called, angles the pivot of the shooter and sets the shooter to the output speed necessary
-     * to score from the bot's distance from the shooter. However, does not shoot the note. 
+    /**
+     * While called, angles the pivot of the shooter and sets the shooter to the
+     * output speed necessary
+     * to score from the bot's distance from the shooter. However, does not shoot
+     * the note.
      */
     private void speakerMode() {
         shooterLeftMotor.set(0.6);
@@ -166,7 +166,7 @@ public class Shooter extends SubsystemBase {
         kickerMotor.set(0.75); // TODO: change to constant
     }
 
-    public CANSparkFlex getShooterLeftMotor(){
+    public CANSparkFlex getShooterLeftMotor() {
         return shooterLeftMotor;
     }
 

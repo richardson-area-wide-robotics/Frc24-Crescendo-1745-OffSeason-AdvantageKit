@@ -17,9 +17,12 @@ public class Feeder extends SubsystemBase {
     public boolean hasNote;
     // private ShuffleboardTab feederTab = Shuffleboard.getTab("Feeder");
 
-    // private GenericEntry m_sensorEntry = feederTab.add("Has Note", false).getEntry();
-    // private GenericEntry m_speedEntry = feederTab.add("Feeder Speed", 0).getEntry();
-    // private GenericEntry m_currentEntry = feederTab.add("Feeder Current", 0).getEntry();
+    // private GenericEntry m_sensorEntry = feederTab.add("Has Note",
+    // false).getEntry();
+    // private GenericEntry m_speedEntry = feederTab.add("Feeder Speed",
+    // 0).getEntry();
+    // private GenericEntry m_currentEntry = feederTab.add("Feeder Current",
+    // 0).getEntry();
 
     public Feeder() {
         m_feederMotor = new CANSparkFlex(FeederConstants.kFeederCANID, CANSparkFlex.MotorType.kBrushless);
@@ -33,8 +36,8 @@ public class Feeder extends SubsystemBase {
 
         setDefaultCommand();
     }
-    
-    /* 
+
+    /*
      * Method that runs periodically
      */
     @Override
@@ -46,91 +49,91 @@ public class Feeder extends SubsystemBase {
     }
 
     /**
-     * @return true if the sensor is blocked 
-     * have to invert signal due to the sensor being a break beam sensor
+     * @return true if the sensor is blocked
+     *         have to invert signal due to the sensor being a break beam sensor
      */
-    public boolean hasNote(){
+    public boolean hasNote() {
         return !m_sensor.get();
-    } 
+    }
 
     /**
      * Method that spins the feeder motor at full positive speed - intaking
      */
-    public void intake(){
+    public void intake() {
         m_feederMotor.set(FeederConstants.kFeederSpeed);
     }
 
     /**
      * Method that spins the feeder motor at full negative speed - outtaking
      */
-    public void outtake(){
+    public void outtake() {
         m_feederMotor.set(-FeederConstants.kFeederSpeed);
     }
 
     /**
      * Sets the default command for the feeder
      */
-    public void setDefaultCommand(){
-        super.setDefaultCommand(Commands.run(()-> m_feederMotor.stopMotor(), this));
+    public void setDefaultCommand() {
+        super.setDefaultCommand(Commands.run(() -> m_feederMotor.stopMotor(), this));
     }
 
     /**
      * Command that spits the note back towards the intake
      */
-    public Command spitNote(){
-        return Commands.run(()-> outtake(), this);
+    public Command spitNote() {
+        return Commands.run(() -> outtake(), this);
     }
 
-    public void setIndicator(boolean note){
+    public void setIndicator(boolean note) {
         hasNote = note;
     }
 
-    public boolean getIndicator(){
+    public boolean getIndicator() {
         return hasNote;
     }
 
     /**
-     * Functional Command that recieves the note from the intake and spins the feeder motor until the note is detected
+     * Functional Command that recieves the note from the intake and spins the
+     * feeder motor until the note is detected
      */
-    public Command feedNote(){
+    public Command feedNote() {
         return new FunctionalCommand(
-            () -> {
-                return;
-            },
-            () -> {
-                intake();
-            },
-            (interrupted) -> {
-                m_feederMotor.stopMotor();
-                setIndicator(true);
+                () -> {
+                    return;
+                },
+                () -> {
+                    intake();
+                },
+                (interrupted) -> {
+                    m_feederMotor.stopMotor();
+                    setIndicator(true);
 
-            },
-            () -> {
-                return hasNote();
-            },
-            this
-        );
+                },
+                () -> {
+                    return hasNote();
+                },
+                this);
     }
 
     /**
-     * Functional Command that shoots the note from the feeder into the shooter wheels and stops when the note is no longer detected
+     * Functional Command that shoots the note from the feeder into the shooter
+     * wheels and stops when the note is no longer detected
      */
-    public Command shootNote(){
+    public Command shootNote() {
         return new FunctionalCommand(
-            () -> {
-                return;
-            },
-            () -> {
-                intake();
-            },
-            (interrupted) -> {
-                m_feederMotor.stopMotor();
-            },
-            () -> {
-                return false;
-            },
-            this
-        );
+                () -> {
+                    return;
+                },
+                () -> {
+                    intake();
+                },
+                (interrupted) -> {
+                    m_feederMotor.stopMotor();
+                },
+                () -> {
+                    return false;
+                },
+                this);
     }
-    
+
 }

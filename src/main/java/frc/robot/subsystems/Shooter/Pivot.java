@@ -19,12 +19,13 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.PivotConstants.PivotDirection;
+import lombok.Getter;
 
 public class Pivot extends SubsystemBase {
 
-    private final CANSparkMax m_PivotLeftMotor;
-    private final CANSparkMax m_PivotRightMotor;
-    private final AbsoluteEncoder m_PivotEncoder;
+    @Getter private final CANSparkMax m_PivotLeftMotor;
+    @Getter private final CANSparkMax m_PivotRightMotor;
+    @Getter private final AbsoluteEncoder m_PivotEncoder;
 
     private Measure<Angle> m_setPoint;
     private SparkPIDController m_PivotPIDController;
@@ -43,7 +44,7 @@ public class Pivot extends SubsystemBase {
     // private GenericEntry m_encoderPositionDegreesEntry = pivotTab.add("Encoder Position Degrees", 0).getEntry();
     // private GenericEntry m_atTopLimitEntry = pivotTab.add("At Top Limit", false).getEntry();
     // private GenericEntry m_atBottomLimitEntry = pivotTab.add("At Bottom Limit", false).getEntry();
-
+    //do we need this?
 
     /**
      * Config to set basic motor settings to avoid redundancy
@@ -84,6 +85,8 @@ public class Pivot extends SubsystemBase {
         motor.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 20);
         motor.setPeriodicFramePeriod(PeriodicFrame.kStatus3, 200);
         motor.setPeriodicFramePeriod(PeriodicFrame.kStatus4, 200);
+
+        motor.burnFlash();
     }
 
     public Pivot() {
@@ -96,14 +99,14 @@ public class Pivot extends SubsystemBase {
 
         m_PivotLeftMotor.follow(m_PivotRightMotor, true);
 
-        m_PivotLeftMotor.burnFlash();
-        m_PivotRightMotor.burnFlash();
-
         m_setPoint = Radians.of(getEncoderPosition());
 
         SmartDashboard.putNumber("P.O.Pt 1", 0);
         SmartDashboard.putNumber("P.O.Pt 2", 0);
         SmartDashboard.putNumber("k", 0);
+
+        SmartDashboard.putNumber("PIVOT ANGLE", 0);
+
      //   SmartDashboard.putNumber("Pivot Offset (Degrees)", 0);
 
     }
@@ -139,6 +142,7 @@ public class Pivot extends SubsystemBase {
                 manualControl = false;
                 m_PivotRightMotor.set(0);
         }
+        SmartDashboard.putNumber("PIVOT ANGLE", m_PivotRightMotor.getAbsoluteEncoder().getPosition());
 
     }
 
@@ -180,21 +184,31 @@ public class Pivot extends SubsystemBase {
      /** 
      * Pivots the shooter to a given angle about the axis of the absolute encoder. 
      */
-    public void pivotTo(Measure<Angle> angle) {
-        m_setPoint = angle;
-        m_PivotPIDController.setReference(angle.in(Radians), ControlType.kPosition);
+    public void pivotTo(double angleRadians) {
+        m_setPoint = Radians.of(angleRadians); // Store the setpoint directly as a double in radians
+        m_PivotPIDController.setReference(angleRadians, ControlType.kPosition);
     }
 
     public Command pivotUp(){
-        return Commands.run(()-> {manualControl = true; m_PivotRightMotor.set (PivotConstants.kPivotSpeed);}, this);
+        return Commands.run(()-> {manualControl = true; pivot(PivotDirection.UP);}, this);
     }
 
     public Command pivotDown(){
-        return Commands.run(()-> {manualControl = true; m_PivotRightMotor.set(-PivotConstants.kPivotSpeed);}, this);
+        return Commands.run(()-> {manualControl = true; pivot(PivotDirection.DOWN);}, this);
     }
 
     public Command pivotIdle(){
         return Commands.run(()-> {manualControl = true; m_PivotRightMotor.set(PivotConstants.kPivotNoSpeed);}, this);
     }
+
+    public Command pivotPresetAMP(){
+        return Commands.run(()-> pivotTo(1.5), this);
+    }
+    public Command pivotPresetSpeaker(){
+        return Commands.run(()-> {manualControl = true; pivotTo(0.135);}, this); //TODO tune numbers :0 
+    }
+
+
+
 }
 
