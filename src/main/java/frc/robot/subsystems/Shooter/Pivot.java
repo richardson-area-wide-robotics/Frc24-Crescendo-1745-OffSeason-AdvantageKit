@@ -184,9 +184,9 @@ public class Pivot extends SubsystemBase {
      /** 
      * Pivots the shooter to a given angle about the axis of the absolute encoder. 
      */
-    public void pivotTo(Measure<Angle> angle) {
-        m_setPoint = angle;
-        m_PivotPIDController.setReference(angle.in(Radians), ControlType.kPosition);
+    public void pivotTo(double angleRadians) {
+        m_setPoint = Radians.of(angleRadians); // Store the setpoint directly as a double in radians
+        m_PivotPIDController.setReference(angleRadians, ControlType.kPosition);
     }
 
     public Command pivotUp(){
@@ -199,6 +199,13 @@ public class Pivot extends SubsystemBase {
 
     public Command pivotIdle(){
         return Commands.run(()-> {manualControl = true; m_PivotRightMotor.set(PivotConstants.kPivotNoSpeed);}, this);
+    }
+
+    public Command pivotPresetAMP(){
+        return Commands.run(()-> pivotTo(1.5), this);
+    }
+    public Command pivotPresetSpeaker(){
+        return Commands.run(()-> {manualControl = true; pivotTo(0.135);}, this); //TODO tune numbers :0 
     }
 
 
