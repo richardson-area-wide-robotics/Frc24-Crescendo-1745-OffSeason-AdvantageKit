@@ -67,14 +67,14 @@ public final class Constants {
         true);
   }
 
-  public static enum Mode {
+  public static enum RobotMode {
     REAL,
     REPLAY,
     SIM
 
   }
 
-  public static Mode currentMode = Mode.REAL;
+  public static RobotMode currentMode = RobotMode.REAL;
 
   public static class HID {
     public static final int PRIMARY_CONTROLLER_PORT = 0;
