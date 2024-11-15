@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.NamedCommands;
 import com.revrobotics.REVPhysicsSim;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -52,6 +53,9 @@ public class RobotContainer {
             PRIMARY_CONTROLLER::getLeftX,
             PRIMARY_CONTROLLER::getRightX));
 
+    // Register named commands
+    NamedCommands.registerCommand("Intake", INTAKE_SUBSYSTEM.runIntake());
+    NamedCommands.registerCommand("Pivot to Speaker", PIVOT_SUBSYSTEM.pivotPresetSpeaker());
 
     // Setup AutoBuilder
     DRIVE_SUBSYSTEM.configureAutoBuilder();
