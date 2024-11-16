@@ -780,7 +780,7 @@ public static Hardware initializeHardware() {
   }
 
   /**
-   * Configure ber auto builder
+   * Configure the auto builder
    */
   public void configureAutoBuilder() {
     AutoBuilder.configureHolonomic(

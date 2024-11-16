@@ -13,6 +13,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.ShooterConstants.ShooterState;
+import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.PivotCommand;
+import frc.robot.commands.ShootCommand;
 import frc.robot.subsystems.Intake.Intake;
 import frc.robot.subsystems.Shooter.Pivot;
 import frc.robot.subsystems.Shooter.Shooter;
@@ -54,8 +57,7 @@ public class RobotContainer {
             PRIMARY_CONTROLLER::getRightX));
 
     // Register named commands
-    NamedCommands.registerCommand("Intake", INTAKE_SUBSYSTEM.runIntake());
-    NamedCommands.registerCommand("Pivot to Speaker", PIVOT_SUBSYSTEM.pivotPresetSpeaker());
+    registerNamedCommands();
 
     // Setup AutoBuilder
     DRIVE_SUBSYSTEM.configureAutoBuilder();
@@ -65,6 +67,12 @@ public class RobotContainer {
 
     // Bind buttons and triggers
     configureBindings();
+  }
+
+  private void registerNamedCommands() {
+    NamedCommands.registerCommand("Intake", new IntakeCommand(FEEDER_SUBSYSTEM, INTAKE_SUBSYSTEM));
+    NamedCommands.registerCommand("Pivot to Speaker", new PivotCommand(PIVOT_SUBSYSTEM, ShooterState.SPEAKER));
+    NamedCommands.registerCommand("Shoot", new ShootCommand(SHOOTER_SUBSYSTEM, FEEDER_SUBSYSTEM));
   }
 
   private void configureBindings() {
@@ -90,26 +98,31 @@ public class RobotContainer {
     PRIMARY_CONTROLLER.rightTrigger().whileTrue(
         PIVOT_SUBSYSTEM.pivotDown()).whileFalse(PIVOT_SUBSYSTEM.pivotIdle());
 
+    // Toggle shooter state
     PRIMARY_CONTROLLER.y().onTrue(
         Commands.runOnce(() -> {
           SHOOTER_SUBSYSTEM.toggleState(ShooterState.SPEAKER);
         }, SHOOTER_SUBSYSTEM));   
 
+    // Shoot note
     PRIMARY_CONTROLLER.a().whileTrue(FEEDER_SUBSYSTEM.shootNote());
+
     // B button - go to source
     //PRIMARY_CONTROLLER.b().whileTrue(DRIVE_SUBSYSTEM.goToPoseCommand(Constants.Field.SOURCE));
 
+    // Reset pose
     PRIMARY_CONTROLLER.povLeft().onTrue(DRIVE_SUBSYSTEM.resetPoseCommand(Pose2d::new));
 
+    // Pivot presets
     PRIMARY_CONTROLLER.povUp().whileTrue(PIVOT_SUBSYSTEM.pivotPresetAMP());
     PRIMARY_CONTROLLER.povDown().whileTrue(PIVOT_SUBSYSTEM.pivotPresetSpeaker());
 
-
+    // Reset heading
     PRIMARY_CONTROLLER.rightStick().onTrue(Commands.runOnce(() -> {DRIVE_SUBSYSTEM.navx.reset();}, DRIVE_SUBSYSTEM));
   }
 
   /**
-   * Run simlation related methods
+   * Run simulation related methods
    */
   public void simulationPeriodic() {
     REVPhysicsSim.getInstance().run();
