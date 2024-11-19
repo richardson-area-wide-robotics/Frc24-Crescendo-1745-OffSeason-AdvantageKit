@@ -25,13 +25,13 @@ import frc.robot.subsystems.Shooter.Feeder;
 
 public class RobotContainer {
 
-  public static Intake INTAKE_SUBSYSTEM = new Intake();
+  public static Intake INTAKE_SUBSYSTEM;
 
-  public static Shooter SHOOTER_SUBSYSTEM = new Shooter();
+  public static Shooter SHOOTER_SUBSYSTEM;
 
-  public static Pivot PIVOT_SUBSYSTEM = new Pivot();
+  public static Pivot PIVOT_SUBSYSTEM;
 
-  public static Feeder FEEDER_SUBSYSTEM = new Feeder();
+  public static Feeder FEEDER_SUBSYSTEM;
 
   public static final DriveSubsystem DRIVE_SUBSYSTEM = new DriveSubsystem(
       DriveSubsystem.initializeHardware(),
@@ -49,6 +49,11 @@ public class RobotContainer {
   private static final SendableChooser<Command> automodeChooser = new SendableChooser<>();
 
   public RobotContainer() {
+    INTAKE_SUBSYSTEM = new Intake();
+    SHOOTER_SUBSYSTEM = new Shooter();
+    PIVOT_SUBSYSTEM = new Pivot();
+    FEEDER_SUBSYSTEM = new Feeder();
+
     // Set drive command
     DRIVE_SUBSYSTEM.setDefaultCommand(
         DRIVE_SUBSYSTEM.driveCommand(
@@ -59,14 +64,15 @@ public class RobotContainer {
     // Register named commands
     registerNamedCommands();
 
-    // Setup AutoBuilder
+    // Set up AutoBuilder
     DRIVE_SUBSYSTEM.configureAutoBuilder();
-
-    autoModeChooser();
-    SmartDashboard.putData(Constants.SmartDashboard.SMARTDASHBOARD_AUTO_MODE, automodeChooser);
 
     // Bind buttons and triggers
     configureBindings();
+
+    // Set up the auto chooser
+    autoModeChooser();
+    SmartDashboard.putData(Constants.SmartDashboard.SMARTDASHBOARD_AUTO_MODE, automodeChooser);
   }
 
   private void registerNamedCommands() {
