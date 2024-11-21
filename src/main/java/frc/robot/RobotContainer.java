@@ -25,13 +25,10 @@ import frc.robot.subsystems.Shooter.Feeder;
 
 public class RobotContainer {
 
-  public static Intake INTAKE_SUBSYSTEM;
-
-  public static Shooter SHOOTER_SUBSYSTEM;
-
-  public static Pivot PIVOT_SUBSYSTEM;
-
-  public static Feeder FEEDER_SUBSYSTEM;
+  public final Intake INTAKE_SUBSYSTEM;
+  public final Shooter SHOOTER_SUBSYSTEM;
+  public final Pivot PIVOT_SUBSYSTEM;
+  public final Feeder FEEDER_SUBSYSTEM;
 
   public static final DriveSubsystem DRIVE_SUBSYSTEM = new DriveSubsystem(
       DriveSubsystem.initializeHardware(),
@@ -49,6 +46,7 @@ public class RobotContainer {
   private static final SendableChooser<Command> automodeChooser = new SendableChooser<>();
 
   public RobotContainer() {
+    // Initialize subsystems
     INTAKE_SUBSYSTEM = new Intake();
     SHOOTER_SUBSYSTEM = new Shooter();
     PIVOT_SUBSYSTEM = new Pivot();
