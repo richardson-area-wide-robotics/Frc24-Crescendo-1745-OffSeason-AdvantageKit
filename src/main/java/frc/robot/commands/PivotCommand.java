@@ -8,10 +8,10 @@ public class PivotCommand extends Command {
     public PivotCommand(Pivot pivot, ShooterState shooterState) {
         switch (shooterState) {
             case SPEAKER:
-            pivot.pivotPresetSpeaker();
+                pivot.pivotPresetSpeaker();
             break;
             case AMP:
-            pivot.pivotPresetAMP();
+                pivot.pivotPresetAMP();
             break;
         }
     }
