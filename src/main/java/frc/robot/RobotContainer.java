@@ -4,7 +4,9 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.revrobotics.REVPhysicsSim;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -43,7 +45,9 @@ public class RobotContainer {
   private static final CommandXboxController PRIMARY_CONTROLLER = new CommandXboxController(
       Constants.HID.PRIMARY_CONTROLLER_PORT);
 
-  private static final SendableChooser<Command> automodeChooser = new SendableChooser<>();
+  private final SendableChooser<Command> automodeChooser;
+
+  PathPlannerAuto leaveAuto;
 
   public RobotContainer() {
     // Initialize subsystems
@@ -69,14 +73,21 @@ public class RobotContainer {
     configureBindings();
 
     // Set up the auto chooser
-    autoModeChooser();
+    automodeChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData(Constants.SmartDashboard.SMARTDASHBOARD_AUTO_MODE, automodeChooser);
+
+    // Initialize autos
+    initializeAutos();
   }
 
   private void registerNamedCommands() {
-    NamedCommands.registerCommand("Intake", new IntakeCommand(FEEDER_SUBSYSTEM, INTAKE_SUBSYSTEM));
+    NamedCommands.registerCommand("Intake", FEEDER_SUBSYSTEM.feedNote().alongWith(INTAKE_SUBSYSTEM.runIntake()));
     NamedCommands.registerCommand("Pivot to Speaker", new PivotCommand(PIVOT_SUBSYSTEM, ShooterState.SPEAKER));
     NamedCommands.registerCommand("Shoot", new ShootCommand(SHOOTER_SUBSYSTEM, FEEDER_SUBSYSTEM));
+  }
+
+  private void initializeAutos() {
+    leaveAuto = new PathPlannerAuto("Leave");
   }
 
   private void configureBindings() {
@@ -130,16 +141,6 @@ public class RobotContainer {
    */
   public void simulationPeriodic() {
     REVPhysicsSim.getInstance().run();
-  }
-
-  /**
-   * Add auto modes to chooser
-   */
-  private void autoModeChooser() {
-    automodeChooser.setDefaultOption("Do nothing", Commands.none());
-    automodeChooser.addOption("Leave", new AutoTrajectory(DRIVE_SUBSYSTEM, "Leave").getCommand());
-    automodeChooser.addOption("Preload + 3 Ring", new AutoTrajectory(DRIVE_SUBSYSTEM, "Preload + 3 Ring").getCommand());
-    automodeChooser.addOption("Preload + 1", new AutoTrajectory(DRIVE_SUBSYSTEM, "Preload + 1").getCommand());
   }
 
   /**
