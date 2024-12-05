@@ -97,9 +97,9 @@ public class Shooter extends SubsystemBase {
             case SPEAKER:
                 speakerMode();
                 break;
-            //case AMP:
-                //ampSpeed();
-                //break;
+            case AMP:
+                ampSpeed();
+                break;
             case REVERSE:
                 reverse();
             case IDLE:
@@ -148,11 +148,11 @@ public class Shooter extends SubsystemBase {
         shooterState = ShooterState.OUTTAKE;
     }
 
-    //private void ampSpeed() {
-        //shooterLeftMotor.set(0.1);
-        //shooterRightMotor.set(0.1);
-        //kickerMotor.set(0.1);
-    //}
+    private void ampSpeed() {
+        shooterLeftMotor.set(0.1);
+        shooterRightMotor.set(0.1);
+        kickerMotor.set(0.1);
+    }
 
     /**
      * While called, angles the pivot of the shooter and sets the shooter to the

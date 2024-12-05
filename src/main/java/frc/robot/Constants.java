@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import static edu.wpi.first.units.Units.Radians;
-
 import org.apache.commons.math3.analysis.interpolation.SplineInterpolator;
 import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
 import org.lasarobotics.drive.AdvancedSwerveKinematics.ControlCentricity;
@@ -25,8 +23,6 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
-import edu.wpi.first.units.Angle;
-import edu.wpi.first.units.Measure;
 import edu.wpi.first.units.Units;
 import frc.robot.subsystems.drive.PurplePathPose;
 import frc.robot.subsystems.vision.AprilTagCamera.Resolution;
@@ -132,9 +128,9 @@ public final class Constants {
     public static final double kPivotMinOutput = -1.0;
     public static final double kPivotMaxOutput = 1.0;
 
-    public static final double kPivotSpeed = 0.2;
-    public static final double kPivotUpSpeed = 3;
-    public static final double kPivotDownSpeed = -1.1;
+    public static final double kPivotSpeed = 0.5;
+    public static final double kPivotUpSpeed = 1.5;
+    public static final double kPivotDownSpeed = -0.5;
     public static final double kPivotNoSpeed = 0.09; //Not zero to stop the pivot from falling due to gravity
 
     // Range of values the smart controller will use as a hard stop
@@ -249,7 +245,8 @@ public final class Constants {
       INTAKE,
       OUTTAKE,
       REVERSE,
-      SPEAKER
+      SPEAKER,
+      AMP
     }
   }
 }

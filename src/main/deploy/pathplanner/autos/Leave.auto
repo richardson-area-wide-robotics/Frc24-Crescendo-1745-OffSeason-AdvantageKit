@@ -3,7 +3,7 @@
   "startingPose": {
     "position": {
       "x": 1.9959808841615208,
-      "y": 7.00722290166912
+      "y": 7.0
     },
     "rotation": 0
   },
@@ -15,6 +15,12 @@
           "type": "path",
           "data": {
             "pathName": "Leave"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
           }
         }
       ]

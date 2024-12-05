@@ -6,6 +6,8 @@ package frc.robot.subsystems.drive;
 
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.GoalEndState;
@@ -30,8 +32,14 @@ public class AutoTrajectory {
   public AutoTrajectory(DriveSubsystem driveSubsystem, String autoName) {
     this.driveSubsystem = driveSubsystem;
 
-    // Get path
-    auto = new Pair<String, List<PathPlannerPath>>(autoName, PathPlannerAuto.getPathGroupFromAutoFile(autoName));
+    if(autoName != null){
+      // Get path
+      auto = new Pair<String, List<PathPlannerPath>>(autoName, PathPlannerAuto.getPathGroupFromAutoFile(autoName));
+    }
+    else{
+      throw new RuntimeErrorException(null);
+    }
+    
   }
 
   /**
