@@ -295,8 +295,8 @@ public static Hardware initializeHardware() {
   // Inverted back left and front right motors
   MAXSwerveModule rFrontModule = new MAXSwerveModule(
     MAXSwerveModule.initializeHardware(
-      Constants.DriveHardware.LEFT_REAR_DRIVE_MOTOR_ID,  // Swapped with left rear
-      Constants.DriveHardware.LEFT_REAR_ROTATE_MOTOR_ID, // Swapped with left rear
+      Constants.DriveHardware.RIGHT_FRONT_DRIVE_MOTOR_ID,
+      Constants.DriveHardware.RIGHT_FRONT_ROTATE_MOTOR_ID,
       MotorKind.NEO_VORTEX
     ),
     MAXSwerveModule.ModuleLocation.RightFront,
@@ -311,8 +311,8 @@ public static Hardware initializeHardware() {
 
   MAXSwerveModule lRearModule = new MAXSwerveModule(
     MAXSwerveModule.initializeHardware(
-      Constants.DriveHardware.RIGHT_FRONT_DRIVE_MOTOR_ID,  // Swapped with right front
-      Constants.DriveHardware.RIGHT_FRONT_ROTATE_MOTOR_ID, // Swapped with right front
+      Constants.DriveHardware.LEFT_REAR_DRIVE_MOTOR_ID,
+      Constants.DriveHardware.LEFT_REAR_ROTATE_MOTOR_ID,
       MotorKind.NEO_VORTEX
     ),
     MAXSwerveModule.ModuleLocation.LeftRear,
