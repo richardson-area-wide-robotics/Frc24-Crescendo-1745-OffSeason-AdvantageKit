@@ -15,8 +15,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.ShooterConstants.ShooterState;
-import frc.robot.commands.PivotCommand;
-import frc.robot.commands.ShootCommand;
 import frc.robot.subsystems.Intake.Intake;
 import frc.robot.subsystems.Shooter.Pivot;
 import frc.robot.subsystems.Shooter.Shooter;
@@ -80,8 +78,14 @@ public class RobotContainer {
 
   private void registerNamedCommands() {
     NamedCommands.registerCommand("Intake", FEEDER_SUBSYSTEM.feedNote().alongWith(INTAKE_SUBSYSTEM.runIntake()));
-    NamedCommands.registerCommand("Pivot to Speaker", new PivotCommand(PIVOT_SUBSYSTEM, ShooterState.SPEAKER));
-    NamedCommands.registerCommand("Shoot", new ShootCommand(SHOOTER_SUBSYSTEM, FEEDER_SUBSYSTEM));
+    NamedCommands.registerCommand("Pivot to Speaker", PIVOT_SUBSYSTEM.pivotPresetSpeaker());
+    NamedCommands.registerCommand("Shoot", Commands.runOnce(() -> {
+    SHOOTER_SUBSYSTEM.toggleState(ShooterState.SPEAKER);
+    }, SHOOTER_SUBSYSTEM)
+    .andThen(FEEDER_SUBSYSTEM.shootNote())
+    .andThen(Commands.runOnce(() -> {
+    SHOOTER_SUBSYSTEM.toggleState(ShooterState.IDLE);
+    })));
   }
 
   private void initializeAutos() {
