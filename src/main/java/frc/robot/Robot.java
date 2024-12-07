@@ -39,7 +39,7 @@ public class Robot extends LoggedRobot {
     Pathfinding.setPathfinder(new LocalADStarAK());
 
     if (isReal()) {
-       //If robot is real, log to USB drive and publish data to NetworkTables
+      //If robot is real, log to USB drive and publish data to NetworkTables
       //Logger.addDataReceiver(new WPILOGWriter("/media/sda1/"));
       //Logger.addDataReceiver(new NT4Publisher());
       new PowerDistribution();
@@ -72,9 +72,6 @@ public class Robot extends LoggedRobot {
     PurpleManager.update();
     CommandScheduler.getInstance().run();
   }
-
-  @Override
-  public void disabledInit() {}
 
   @Override
   public void disabledPeriodic() {}

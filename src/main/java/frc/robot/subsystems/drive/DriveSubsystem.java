@@ -122,6 +122,7 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
   private final RotatePIDController rotatePIDController;
   private final ProfiledPIDController autoAimPIDControllerFront;
   private final ProfiledPIDController autoAimPIDControllerBack;
+  @Getter
   private final SwerveDriveKinematics kinematics;
   private final SwerveDrivePoseEstimator poseEstimator;
   private final AdvancedSwerveKinematics advancedKinematics;
@@ -1072,14 +1073,6 @@ public static Hardware initializeHardware() {
   }
 
   /**
-   * Get drivetrain kinematics
-   * @return Kinematics object
-   */
-  public SwerveDriveKinematics getKinematics() {
-    return kinematics;
-  }
-
-  /**
    * Get whether or not robot is tipping over
    * @return True if robot is tipping
    */
@@ -1087,7 +1080,6 @@ public static Hardware initializeHardware() {
     return Math.abs(getPitch().in(Units.Degrees)) > TIP_THRESHOLD ||
            Math.abs(getRoll().in(Units.Degrees)) > TIP_THRESHOLD;
   }
-
 
   /**
    * Get whether or not robot is nearly balanced

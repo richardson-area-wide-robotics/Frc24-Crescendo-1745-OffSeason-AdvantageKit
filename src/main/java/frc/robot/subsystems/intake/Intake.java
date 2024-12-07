@@ -7,11 +7,14 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.IntakeConstants.IntakeState;
+import lombok.Getter;
+import lombok.Setter;
 
 public class Intake extends SubsystemBase {
 
     private final CANSparkMax intakeMotor;
 
+    @Getter @Setter
     private IntakeState m_intakeState = IntakeState.IDLE;
 
     // private ShuffleboardTab intakeTab = Shuffleboard.getTab("Intake");
@@ -58,11 +61,4 @@ public class Intake extends SubsystemBase {
         return Commands.run(() -> intakeMotor.set(IntakeConstants.kOuttakeSpeed), this);
     }
 
-    public IntakeState getM_intakeState() {
-        return m_intakeState;
-    }
-
-    public void setM_intakeState(IntakeState m_intakeState) {
-        this.m_intakeState = m_intakeState;
-    }
 }
