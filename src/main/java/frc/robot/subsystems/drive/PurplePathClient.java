@@ -41,7 +41,7 @@ public class PurplePathClient {
 
   private final String URI;
 
-  private DriveSubsystem m_driveSubsystem;
+  private final DriveSubsystem m_driveSubsystem;
   private HttpURLConnection m_serverConnection;
   private boolean m_isConnected;
   private boolean m_connectivityCheckEnabled;

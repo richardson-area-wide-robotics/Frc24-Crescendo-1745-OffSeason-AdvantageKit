@@ -8,6 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
+import lombok.Getter;
 import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 import org.lasarobotics.drive.AdvancedSwerveKinematics;
@@ -124,6 +125,8 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
   private final SwerveDriveKinematics kinematics;
   private final SwerveDrivePoseEstimator poseEstimator;
   private final AdvancedSwerveKinematics advancedKinematics;
+
+  @Getter
   private final HolonomicPathFollowerConfig pathFollowerConfig;
 
   public final NavX2 navx;
@@ -234,6 +237,7 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
 
     // Setup anti-tip command
     //new Trigger(this::isTipping).whileTrue(ANTI_TIP_COMMAND);
+    //TODO ^ Does this work?
 
     // Setup auto-aim PID controller
     autoAimPIDControllerFront = new ProfiledPIDController(AUTO_AIM_PID.kP, 0.0, AUTO_AIM_PID.kD, AIM_PID_CONSTRAINT, AUTO_AIM_PID.period);
@@ -247,7 +251,7 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
     m_previousPose = new Pose2d();
     currentHeading = new Rotation2d();
 
-    // Initalise PurplePathClient
+    // Initialise PurplePathClient
     purplePathClient = new PurplePathClient(this);
 
     // Initialise field
@@ -1038,15 +1042,7 @@ public static Hardware initializeHardware() {
     rotatePIDController.reset();
   }
 
-  /**
-   * Get path follower configuration
-   * @return Path follower configuration
-   */
-  public HolonomicPathFollowerConfig getPathFollowerConfig() {
-    return pathFollowerConfig;
-  }
-
-  /**
+    /**
    * Get constraints for path following
    * @return Path following constraints
    */

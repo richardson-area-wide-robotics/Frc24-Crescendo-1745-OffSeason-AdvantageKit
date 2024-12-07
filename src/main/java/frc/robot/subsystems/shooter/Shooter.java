@@ -1,25 +1,31 @@
-package frc.robot.subsystems.Shooter;
+package frc.robot.subsystems.shooter;
 
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.SparkPIDController;
 
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.Constants.ShooterConstants.ShooterState;
+import lombok.Getter;
+import lombok.Setter;
 
 public class Shooter extends SubsystemBase {
     private final CANSparkFlex kickerMotor;
+    @Getter
     private final CANSparkFlex shooterLeftMotor;
     private final CANSparkFlex shooterRightMotor;
 
     private ShooterState shooterState;
 
+    @Getter @Setter
     private double leftTargetSpeed = 0.0;
+    @Getter @Setter
     private double rightTargetSpeed = 0.0;
+    @Getter @Setter
     private boolean leftPIDActive = false;
+    @Getter @Setter
     private boolean rightPIDActive = false;
 
     public void kickerConfig(CANSparkFlex motor) {
@@ -30,10 +36,6 @@ public class Shooter extends SubsystemBase {
         motor.setIdleMode(ShooterConstants.kKickerMotorIdleMode);
 
         motor.setInverted(ShooterConstants.kKickerMotorInvert);
-
-        SparkPIDController kickerPIDController = motor.getPIDController();
-
-        RelativeEncoder kickerEncoder = motor.getEncoder();
 
         shooterState = ShooterState.IDLE;
 
@@ -73,11 +75,6 @@ public class Shooter extends SubsystemBase {
         kickerConfig(kickerMotor);
         shooterConfig(shooterLeftMotor, true);
         shooterConfig(shooterRightMotor, false);
-
-        SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(
-                ShooterConstants.FEED_FORWARDKS,
-                ShooterConstants.FEED_FORWARDKV,
-                ShooterConstants.FEED_FORWARDKA);
 
         kickerMotor.burnFlash();
         shooterLeftMotor.burnFlash();
@@ -166,39 +163,4 @@ public class Shooter extends SubsystemBase {
         kickerMotor.set(0.75); // TODO: change to constant
     }
 
-    public CANSparkFlex getShooterLeftMotor() {
-        return shooterLeftMotor;
-    }
-
-    public double getLeftTargetSpeed() {
-        return leftTargetSpeed;
-    }
-
-    public void setLeftTargetSpeed(double leftTargetSpeed) {
-        this.leftTargetSpeed = leftTargetSpeed;
-    }
-
-    public double getRightTargetSpeed() {
-        return rightTargetSpeed;
-    }
-
-    public void setRightTargetSpeed(double rightTargetSpeed) {
-        this.rightTargetSpeed = rightTargetSpeed;
-    }
-
-    public boolean isLeftPIDActive() {
-        return leftPIDActive;
-    }
-
-    public void setLeftPIDActive(boolean leftPIDActive) {
-        this.leftPIDActive = leftPIDActive;
-    }
-
-    public boolean isRightPIDActive() {
-        return rightPIDActive;
-    }
-
-    public void setRightPIDActive(boolean rightPIDActive) {
-        this.rightPIDActive = rightPIDActive;
-    }
 }

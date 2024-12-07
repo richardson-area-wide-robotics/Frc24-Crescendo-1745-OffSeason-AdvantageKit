@@ -15,11 +15,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.ShooterConstants.ShooterState;
-import frc.robot.subsystems.Intake.Intake;
-import frc.robot.subsystems.Shooter.Pivot;
-import frc.robot.subsystems.Shooter.Shooter;
+import frc.robot.subsystems.intake.Intake;
+import frc.robot.subsystems.shooter.Pivot;
+import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.drive.DriveSubsystem;
-import frc.robot.subsystems.Shooter.Feeder;
+import frc.robot.subsystems.shooter.Feeder;
 
 public class RobotContainer {
 
@@ -79,13 +79,9 @@ public class RobotContainer {
   private void registerNamedCommands() {
     NamedCommands.registerCommand("Intake", FEEDER_SUBSYSTEM.feedNote().alongWith(INTAKE_SUBSYSTEM.runIntake()));
     NamedCommands.registerCommand("Pivot to Speaker", PIVOT_SUBSYSTEM.pivotPresetSpeaker());
-    NamedCommands.registerCommand("Shoot", Commands.runOnce(() -> {
-      SHOOTER_SUBSYSTEM.toggleState(ShooterState.SPEAKER);
-    }, SHOOTER_SUBSYSTEM)
+    NamedCommands.registerCommand("Shoot", Commands.runOnce(() -> SHOOTER_SUBSYSTEM.toggleState(ShooterState.SPEAKER), SHOOTER_SUBSYSTEM)
     .andThen(FEEDER_SUBSYSTEM.shootNote())
-    .andThen(Commands.runOnce(() -> {
-      SHOOTER_SUBSYSTEM.toggleState(ShooterState.IDLE);
-    })));
+    .andThen(Commands.runOnce(() -> SHOOTER_SUBSYSTEM.toggleState(ShooterState.IDLE))));
   }
 
   private void initializeAutos() {

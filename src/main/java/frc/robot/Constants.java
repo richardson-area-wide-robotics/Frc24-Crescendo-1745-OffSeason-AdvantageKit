@@ -225,10 +225,6 @@ public final class Constants {
     public static final boolean kShooterLeftMotorInverted = true;
     public static final boolean kShooterRightMotorInverted = false;
 
-    public static final double FEED_FORWARDKS = 0.11331 / 60.0;
-    public static final double FEED_FORWARDKV = 0.060404 / 60.0;
-    public static final double FEED_FORWARDKA = 0.064897 / 60.0;
-
     public static final double kShooterReverseSpeed = -0.1;
     public static final double kShooterIdleSpeed = 0.1;
 

@@ -5,9 +5,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.RobotBase;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class Main {
-  private Main() {}
 
   public static void main(String... args) {
     RobotBase.startRobot(Robot::new);

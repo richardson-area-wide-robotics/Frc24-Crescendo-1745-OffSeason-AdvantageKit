@@ -58,17 +58,17 @@ public class VisionSubsystem extends SubsystemBase implements AutoCloseable {
 
   private static final double INTAKE_YAW_TOLERANCE = 1;
 
-  private AtomicReference<List<AprilTagCameraResult>> m_estimatedRobotPoses;
-  private AtomicReference<List<AprilTag>> m_visibleTags;
-  private AtomicReference<List<Pose2d>> m_loggedEstimatedPoses;
-  private AtomicReference<List<Pose3d>> m_visibleTagPoses;
+  private final AtomicReference<List<AprilTagCameraResult>> m_estimatedRobotPoses;
+  private final AtomicReference<List<AprilTag>> m_visibleTags;
+  private final AtomicReference<List<Pose2d>> m_loggedEstimatedPoses;
+  private final AtomicReference<List<Pose3d>> m_visibleTagPoses;
 
-  private ObjectCamera m_objectCamera;
-  private AprilTagCamera[] m_apriltagCameras;
-  private Notifier m_cameraNotifier;
-  private AprilTagFieldLayout m_fieldLayout;
+  private final ObjectCamera m_objectCamera;
+  private final AprilTagCamera[] m_apriltagCameras;
+  private final Notifier m_cameraNotifier;
+  private final AprilTagFieldLayout m_fieldLayout;
   private Supplier<Pose2d> m_poseSupplier;
-  private VisionSystemSim m_sim;
+  private final VisionSystemSim m_sim;
 
   /**
    * Create a new vision subsystem

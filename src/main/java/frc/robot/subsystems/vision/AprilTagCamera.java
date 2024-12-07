@@ -57,17 +57,17 @@ public class AprilTagCamera implements Runnable, AutoCloseable {
     public final int width;
     public final int height;
 
-    private Resolution(int width, int height) {
+    Resolution(int width, int height) {
       this.width = width;
       this.height = height;
     }
   }
 
-  private PhotonCamera m_camera;
-  private PhotonCameraSim m_cameraSim;
-  private PhotonPoseEstimator m_poseEstimator;
-  private Transform3d m_transform;
-  private AtomicReference<AprilTagCameraResult> m_atomicEstimatedRobotPose;
+  private final PhotonCamera m_camera;
+  private final PhotonCameraSim m_cameraSim;
+  private final PhotonPoseEstimator m_poseEstimator;
+  private final Transform3d m_transform;
+  private final AtomicReference<AprilTagCameraResult> m_atomicEstimatedRobotPose;
 
   /**
    * Create VisionCamera
@@ -114,11 +114,8 @@ public class AprilTagCamera implements Runnable, AutoCloseable {
     if (pose.getX() < 0.0 || pose.getX() >= Constants.Field.FIELD_LENGTH
      || pose.getY() < 0.0 || pose.getY() >= Constants.Field.FIELD_WIDTH) return false;
 
-    // Make sure pose is near the floor
-    if (pose.getZ() > POSE_MAX_HEIGHT) return false;
-
-    // Pose is acceptable
-    return true;
+    // Make sure pose is near the floor (True is pose is acceptable)
+    return !(pose.getZ() > POSE_MAX_HEIGHT);
   }
 
   @Override

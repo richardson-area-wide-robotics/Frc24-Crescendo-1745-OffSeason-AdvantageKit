@@ -19,16 +19,19 @@ import edu.wpi.first.units.Measure;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import lombok.Getter;
 
 /** PurplePath Pose */
 public class PurplePathPose {
 
     private final Pose2d bluePose;
     private final Pose2d redPose;
-  private final Pose2d blueFinalApproachPose;
+    private final Pose2d blueFinalApproachPose;
     private final Pose2d redFinalApproachPose;
-  private PathPlannerPath blueFinalApproachPath, redFinalApproachPath;
-  private final double finalApproachDistance;
+    private PathPlannerPath blueFinalApproachPath, redFinalApproachPath;
+
+    @Getter
+    private final double finalApproachDistance;
 
   /**
    * Create alliance specific goal for PurplePath
@@ -99,15 +102,7 @@ public class PurplePathPose {
     this(pose, finalApproachDistance, false);
   }
 
-  /**
-   * Get final approach distance
-   * @return Final approach distance
-   */
-  public double getFinalApproachDistance() {
-    return finalApproachDistance;
-  }
-
-  /**
+    /**
    * Calculate final approach paths
    * @param pathConstraints Path constraints to apply to final approach paths
    */

@@ -32,7 +32,7 @@ public class Robot extends LoggedRobot {
   @SuppressWarnings("resource")
   public void robotInit() {
     // AdvantageKit Logging
-    Logger.recordMetadata("ProjectName", "PurpleSwerve");
+    Logger.recordMetadata("ProjectName", "RAWR");
     Logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
 
     // Set pathfinding algorithm to be AdvantageKit compatible
@@ -61,7 +61,7 @@ public class Robot extends LoggedRobot {
     }
 
     // Start logging! No more data receivers, replay sources, or metadata values may be added.
-      Logger.start();
+    Logger.start();
     
 
     robotContainer = new RobotContainer();
@@ -91,7 +91,7 @@ public class Robot extends LoggedRobot {
   @Override
   public void autonomousPeriodic() {}
 
-    @Override
+  @Override
   public void teleopInit() {
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
@@ -103,14 +103,13 @@ public class Robot extends LoggedRobot {
   @Override
   public void teleopPeriodic() {}
 
-    @Override
+  @Override
   public void simulationPeriodic() {
     robotContainer.simulationPeriodic();
   }
 
   @Override
   public void testInit() {
-
     CommandScheduler.getInstance().cancelAll();
   }
 
