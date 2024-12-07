@@ -63,15 +63,12 @@ public final class Constants {
         true);
   }
 
-  public static enum RobotMode {
-    REAL,
-    REPLAY,
-    SIM
-
-  }
-
-  public static RobotMode currentMode = RobotMode.REAL;
-
+  /**
+   * Constants for controllers
+   * {@link HID#PRIMARY_CONTROLLER_PORT} is for the driver,
+   * <br> <br>
+   * {@link HID#SECONDARY_CONTROLLER_PORT} is for the operator
+   */
   public static class HID {
     public static final int PRIMARY_CONTROLLER_PORT = 0;
     public static final int SECONDARY_CONTROLLER_PORT = 1;
@@ -145,6 +142,7 @@ public final class Constants {
     }
   }
 
+  /** Constants for the Swerve Modules */
   public static class DriveHardware {
     public static final NavX2.ID NAVX_ID = new NavX2.ID("DriveHardware/NavX2");
     public static final Spark.ID LEFT_FRONT_DRIVE_MOTOR_ID = new Spark.ID("DriveHardware/Swerve/LeftFront/Drive", 5);
@@ -158,6 +156,7 @@ public final class Constants {
     //public static final LEDStrip.ID LED_STRIP_ID = new LEDStrip.ID("DriveHardware/LEDStrip", 0, 200);
   }
 
+  /** Constants for Vision (Unused 2024)*/
   public static class VisionHardware {
     public static final String CAMERA_A_NAME = "Arducam_OV9782_USB_Camera_A";
     public static final Transform3d CAMERA_A_LOCATION = new Transform3d(
@@ -211,6 +210,7 @@ public final class Constants {
     public static final int kFeederSensorPort = 0;
   }
 
+  /** Shooter Constants */
   public static final class ShooterConstants {
     public static final int kKickerMotorCANID = 12;
     public static final int kShooterRightCANID = 13;
@@ -225,9 +225,6 @@ public final class Constants {
     public static final boolean kShooterLeftMotorInverted = true;
     public static final boolean kShooterRightMotorInverted = false;
 
-    public static final double RIGHT_PERCENT_OF_LEFT = 0.55;
-    public static final double PID_ACTIVE_RANGE = 750.0;
-    public static final double RAMP_SPEED = 0.95;
     public static final double FEED_FORWARDKS = 0.11331 / 60.0;
     public static final double FEED_FORWARDKV = 0.060404 / 60.0;
     public static final double FEED_FORWARDKA = 0.064897 / 60.0;
