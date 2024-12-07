@@ -43,8 +43,6 @@ public class RobotContainer {
 
   private final SendableChooser<Command> automodeChooser;
 
-  PathPlannerAuto leaveAuto;
-
   public RobotContainer() {
     // Initialize subsystems
     INTAKE_SUBSYSTEM = new Intake();
@@ -85,7 +83,9 @@ public class RobotContainer {
   }
 
   private void initializeAutos() {
-    leaveAuto = new PathPlannerAuto("Leave");
+    PathPlannerAuto leaveAuto = new PathPlannerAuto("Leave");
+    PathPlannerAuto preLoad1 = new PathPlannerAuto("Preload + 1");
+    PathPlannerAuto preLoad3 = new PathPlannerAuto("Preload + 1");
   }
 
   private void configureBindings() {
@@ -131,7 +131,7 @@ public class RobotContainer {
     PRIMARY_CONTROLLER.povDown().whileTrue(PIVOT_SUBSYSTEM.pivotPresetSpeaker());
 
     // Reset heading
-    PRIMARY_CONTROLLER.rightStick().onTrue(Commands.runOnce(() -> {DRIVE_SUBSYSTEM.navx.reset();}, DRIVE_SUBSYSTEM));
+    PRIMARY_CONTROLLER.rightStick().onTrue(Commands.runOnce(DRIVE_SUBSYSTEM.navx::reset, DRIVE_SUBSYSTEM));
   }
 
   /**
